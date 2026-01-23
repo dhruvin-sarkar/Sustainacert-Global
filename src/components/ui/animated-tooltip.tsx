@@ -46,7 +46,7 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
   };
 
   return (
-    <div className={cn("flex items-center -space-x-2", className)}>
+    <div className={cn("flex items-center -space-x-3", className)}>
       {items.map((item) => (
         <div
           className="relative group"
@@ -57,7 +57,7 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
           <AnimatePresence mode="popLayout">
             {hoveredIndex === item.id && (
               <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                initial={{ opacity: 0, y: 15, scale: 0.8 }}
                 animate={{
                   opacity: 1,
                   y: 0,
@@ -68,19 +68,19 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
                     damping: 10,
                   },
                 }}
-                exit={{ opacity: 0, y: 10, scale: 0.8 }}
+                exit={{ opacity: 0, y: 15, scale: 0.8 }}
                 style={{
                   translateX: translateX,
                   rotate: rotate,
                   whiteSpace: "nowrap",
                 }}
-                className="absolute -top-14 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center rounded-lg bg-slate-900 border border-emerald-500/30 z-50 shadow-xl px-3 py-2"
+                className="absolute -top-20 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center rounded-xl bg-slate-900 border-2 border-emerald-400/40 z-50 shadow-2xl px-5 py-3"
               >
-                <div className="absolute inset-x-4 z-30 w-[30%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px" />
-                <div className="font-semibold text-white relative z-30 text-xs">
+                <div className="absolute inset-x-6 z-30 w-[40%] -bottom-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent h-[2px]" />
+                <div className="font-bold text-white relative z-30 text-base">
                   {item.name}
                 </div>
-                <div className="text-slate-400 text-[10px]">
+                <div className="text-slate-400 text-sm mt-1">
                   {item.designation}
                 </div>
               </motion.div>
@@ -91,7 +91,7 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
             onMouseMove={handleMouseMove}
             src={item.image}
             alt={item.name}
-            className="object-cover object-top rounded-full h-10 w-10 border-2 border-emerald-900/50 group-hover:border-emerald-500 group-hover:scale-110 group-hover:z-30 relative transition-all duration-300 cursor-pointer"
+            className="object-cover object-top rounded-full h-12 w-12 border-2 border-emerald-900/50 group-hover:border-emerald-400 group-hover:scale-125 group-hover:z-30 relative transition-all duration-300 cursor-pointer shadow-lg"
           />
         </div>
       ))}

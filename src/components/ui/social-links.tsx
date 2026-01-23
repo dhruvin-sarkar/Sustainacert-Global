@@ -17,67 +17,76 @@ interface SocialLinksProps extends React.HTMLAttributes<HTMLDivElement> {
 export function SocialLinks({ socials, className, ...props }: SocialLinksProps) {
   const [hoveredSocial, setHoveredSocial] = React.useState<string | null>(null);
   const [rotation, setRotation] = React.useState<number>(0);
+  const [clicked, setClicked] = React.useState<boolean>(false);
+
+  const animation = {
+    scale: clicked ? [1, 1.3, 1] : 1,
+    transition: { duration: 0.3 },
+  };
+
+  React.useEffect(() => {
+    const handleClick = () => {
+      setClicked(true);
+      setTimeout(() => {
+        setClicked(false);
+      }, 200);
+    };
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, [clicked]);
 
   return (
     <div
-      className={cn("flex items-center justify-center gap-1", className)}
+      className={cn("flex items-center gap-0", className)}
       {...props}
     >
       {socials.map((social, index) => (
-        <a
-          key={index}
-          href={social.url}
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
           className={cn(
-            "relative cursor-pointer px-3 py-2 transition-opacity duration-200 rounded-lg hover:bg-emerald-950/50",
+            "relative cursor-pointer px-6 py-3 transition-opacity duration-200", // Increased padding from px-5 py-2 to px-6 py-3
             hoveredSocial && hoveredSocial !== social.name
-              ? "opacity-40"
+              ? "opacity-50"
               : "opacity-100"
           )}
+          key={index}
           onMouseEnter={() => {
             setHoveredSocial(social.name);
             setRotation(Math.random() * 20 - 10);
           }}
           onMouseLeave={() => setHoveredSocial(null)}
+          onClick={() => {
+            setClicked(true);
+            window.open(social.url, '_blank', 'noopener,noreferrer');
+          }}
         >
-          <span className="block text-sm font-medium text-slate-300 hover:text-emerald-400 transition-colors relative z-10">
+          <span className="block text-base font-medium text-slate-300 hover:text-emerald-300 transition-colors select-none">
             {social.name}
           </span>
-          
-          {/* Animated Icon Preview */}
           <AnimatePresence>
             {hoveredSocial === social.name && (
-              <motion.div className="absolute -top-16 left-1/2 -translate-x-1/2 pointer-events-none z-20">
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 flex h-full w-full items-center justify-center pointer-events-none"
+                animate={animation}
+              >
                 <motion.img
+                  key={social.name}
                   src={social.image}
                   alt={social.name}
-                  className="w-12 h-12 rounded-lg shadow-2xl border-2 border-emerald-500/50"
+                  className="size-16 object-contain drop-shadow-2xl"
                   initial={{
-                    y: 10,
+                    y: -40,
                     rotate: rotation,
                     opacity: 0,
-                    scale: 0.8,
-                    filter: "blur(4px)",
+                    filter: "blur(2px)",
                   }}
-                  animate={{ 
-                    y: 0, 
-                    opacity: 1, 
-                    scale: 1,
-                    filter: "blur(0px)" 
-                  }}
-                  exit={{ 
-                    y: 10, 
-                    opacity: 0,
-                    scale: 0.8,
-                    filter: "blur(4px)" 
-                  }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  animate={{ y: -50, opacity: 1, filter: "blur(0px)" }}
+                  exit={{ y: -40, opacity: 0, filter: "blur(2px)" }}
+                  transition={{ duration: 0.2 }}
                 />
               </motion.div>
             )}
           </AnimatePresence>
-        </a>
+        </div>
       ))}
     </div>
   );
