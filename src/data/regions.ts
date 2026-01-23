@@ -3,6 +3,8 @@ export interface RegionData {
   name: string;
   color: string;
   countries: string[];
+  mainHub: string;  // Main city for the map
+  hubCoordinates: string;  // Lat/Long of main hub
   detailedInfo: {
     description: string;
     offices: string[];
@@ -20,6 +22,8 @@ export const HIGHLIGHTED_REGIONS: RegionData[] = [
     name: 'Middle East',
     color: '#10b981',
     countries: ['ARE', 'SAU', 'QAT', 'KWT', 'BHR', 'OMN', 'JOR', 'LBN', 'ISR', 'PSE', 'SYR', 'IRQ', 'YEM'],
+    mainHub: 'Dubai, UAE',
+    hubCoordinates: '25.2048° N, 55.2708° E',
     detailedInfo: {
       description:
         'SUSTAINACERT Middle East serves as our global headquarters, offering comprehensive sustainability certification and auditing services across the Gulf Cooperation Council.',
@@ -36,6 +40,8 @@ export const HIGHLIGHTED_REGIONS: RegionData[] = [
     name: 'South Asia',
     color: '#22c55e',
     countries: ['IND', 'PAK', 'BGD', 'LKA', 'NPL', 'BTN', 'MDV', 'AFG'],
+    mainHub: 'Mumbai, India',
+    hubCoordinates: '19.0760° N, 72.8777° E',
     detailedInfo: {
       description: 'Our South Asian operations provide world-class certification services across India, Pakistan, Bangladesh, and Sri Lanka.',
       offices: ['Mumbai', 'Delhi', 'Bangalore', 'Kolkata'],
@@ -51,6 +57,8 @@ export const HIGHLIGHTED_REGIONS: RegionData[] = [
     name: 'Southeast Asia',
     color: '#84cc16',
     countries: ['SGP', 'THA', 'IDN', 'MYS', 'PHL', 'VNM', 'MMR', 'KHM', 'LAO', 'BRN', 'TLS'],
+    mainHub: 'Singapore',
+    hubCoordinates: '1.3521° N, 103.8198° E',
     detailedInfo: {
       description: 'SUSTAINACERT Southeast Asia delivers certification excellence across ASEAN member states.',
       offices: ['Singapore', 'Bangkok', 'Jakarta', 'Manila'],
@@ -98,6 +106,8 @@ export const HIGHLIGHTED_REGIONS: RegionData[] = [
       'CYP',
       'ISL',
     ],
+    mainHub: 'London, UK',
+    hubCoordinates: '51.5074° N, 0.1278° W',
     detailedInfo: {
       description: 'Our European division brings together certified auditors and inspectors who understand EU regulations and standards.',
       offices: ['London', 'Frankfurt', 'Paris', 'Amsterdam'],
@@ -162,6 +172,8 @@ export const HIGHLIGHTED_REGIONS: RegionData[] = [
       'STP',
       'SYC',
     ],
+    mainHub: 'Cairo, Egypt',
+    hubCoordinates: '30.0444° N, 31.2357° E',
     detailedInfo: {
       description: 'SUSTAINACERT Africa is committed to supporting sustainable development across the continent.',
       offices: ['Cairo', 'Nairobi', 'Lagos', 'Johannesburg'],

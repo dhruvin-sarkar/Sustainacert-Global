@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import RegionModal from '@/components/ui/region-modal';
+import RegionCardsModal from '@/components/RegionCardsModal';
 import { getRegionForCountry } from '@/data/regions';
 import type { RegionData } from '@/types';
 
@@ -661,7 +661,7 @@ export default function WireframeDottedGlobe() {
       </div>
 
       {selectedRegion && (
-        <RegionModal
+        <RegionCardsModal
           region={selectedRegion}
           onClose={() => {
             setSelectedRegion(null);

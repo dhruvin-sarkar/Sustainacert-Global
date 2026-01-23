@@ -2,6 +2,7 @@
 
 import { X, Building2, Mail, Phone, Globe } from 'lucide-react';
 import { getRegionForCountry } from '@/data/regions';
+import { LocationMap } from '@/components/ui/expand-map';
 import type { RegionData } from '@/types';
 
 interface RegionModalProps {
@@ -62,6 +63,17 @@ export default function RegionModal({ region, onClose }: RegionModalProps) {
           </div>
 
           <div className="px-8 pb-8 space-y-7">
+            {/* Location Map Section */}
+            <div className="flex flex-col items-center justify-center py-6">
+              <p className="text-slate-400 text-xs font-medium tracking-widest uppercase mb-4">
+                Main Hub Location
+              </p>
+              <LocationMap 
+                location={region.mainHub}
+                coordinates={region.hubCoordinates}
+              />
+            </div>
+
             <div
               className="p-6 rounded-2xl"
               style={{

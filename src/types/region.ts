@@ -3,6 +3,8 @@ export interface RegionData {
   name: string;
   color: string;
   countries: string[];
+  mainHub: string;  // Main city for the map
+  hubCoordinates: string;  // Lat/Long of main hub
   detailedInfo: {
     description: string;
     offices: string[];
