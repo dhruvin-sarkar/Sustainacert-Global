@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/layouts/Layout';
 import { insights, categories } from '@/data/insights';
 
 export default function NewsBlogs() {

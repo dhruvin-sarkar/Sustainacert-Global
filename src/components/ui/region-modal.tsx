@@ -1,7 +1,8 @@
 "use client"
 
 import { X, Building2, Mail, Phone, Globe } from 'lucide-react';
-import { RegionData } from '@/lib/globe-regions';
+import { getRegionForCountry } from '@/data/regions';
+import type { RegionData } from '@/types';
 
 interface RegionModalProps {
   region: RegionData;

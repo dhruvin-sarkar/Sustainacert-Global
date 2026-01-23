@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Shield, Scale, FileCheck, CheckCircle, Award, Leaf, Globe, Monitor, Lock } from 'lucide-react';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/layouts/Layout';
 import CertificationProcess from '@/components/sections/CertificationProcess';
 import GeographicalPresence from '@/components/sections/GeographicalPresence';
 import Testimonials from '@/components/sections/Testimonials';

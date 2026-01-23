@@ -20,7 +20,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { ConfettiButton } from '@/components/ui/confetti';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/layouts/Layout';
 
 const serviceOptions = [
   'ISO & Management System Certification',

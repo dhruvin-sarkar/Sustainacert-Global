@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { BRAND_GLOW } from '@/lib/brand-colors';
+import { BRAND_GLOW } from '@/constants/brand-colors';
 import { cn } from '@/lib/utils';
 
 type GlowColor = 'green';

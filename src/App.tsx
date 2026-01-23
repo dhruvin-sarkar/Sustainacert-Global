@@ -14,7 +14,6 @@ import ContactUs from "./pages/ContactUs";
 import Apply from "./pages/Apply";
 import Verify from "./pages/Verify";
 import NotFound from "./pages/NotFound";
-import { ConfettiDemo } from "./pages/ConfettiDemo";
 
 const queryClient = new QueryClient();
 
@@ -37,7 +36,6 @@ const App = () => (
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/apply" element={<Apply />} />
             <Route path="/verify" element={<Verify />} />
-            <Route path="/confetti-demo" element={<ConfettiDemo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

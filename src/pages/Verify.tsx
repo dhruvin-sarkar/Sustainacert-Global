@@ -4,7 +4,7 @@ import { Search, Shield, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ConfettiButton } from '@/components/ui/confetti';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/layouts/Layout';
 import confetti from 'canvas-confetti';
 
 type VerificationStatus = 'idle' | 'loading' | 'valid' | 'not-found';

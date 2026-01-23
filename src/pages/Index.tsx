@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Globe, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InfiniteSlider } from '@/components/ui/infinite-slider';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/layouts/Layout';
 import ServicesPreview from '@/components/sections/ServicesPreview';
 import CertificationProcess from '@/components/sections/CertificationProcess';
 import LatestInsights from '@/components/sections/LatestInsights';

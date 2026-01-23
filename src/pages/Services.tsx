@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/layouts/Layout';
 import Newsletter from '@/components/sections/Newsletter';
 import { serviceCategories, featuredServices } from '@/data/services';
 

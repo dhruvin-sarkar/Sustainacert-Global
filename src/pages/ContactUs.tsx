@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/layouts/Layout';
 import GeographicalPresence from '@/components/sections/GeographicalPresence';
 import Testimonials from '@/components/sections/Testimonials';
 import Newsletter from '@/components/sections/Newsletter';

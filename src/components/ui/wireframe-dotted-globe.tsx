@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import RegionModal from '@/components/ui/region-modal';
-import { getRegionForCountry, RegionData } from '@/lib/globe-regions';
+import { getRegionForCountry } from '@/data/regions';
+import type { RegionData } from '@/types';
 
 interface DotData {
   lng: number;

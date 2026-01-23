@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Target, Eye, CheckCircle, Users, Globe, Award } from 'lucide-react';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/layouts/Layout';
 import GeographicalPresence from '@/components/sections/GeographicalPresence';
 import Testimonials from '@/components/sections/Testimonials';
 import Newsletter from '@/components/sections/Newsletter';
