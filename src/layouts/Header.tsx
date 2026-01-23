@@ -43,6 +43,9 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 lg:px-8">
         <nav className="flex items-center justify-between">
+          {/* Theme Toggle - Far Left */}
+          <SkyToggle checked={isDark} onChange={toggleTheme} />
+          
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <img 
@@ -79,7 +82,6 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-4">
-            <SkyToggle checked={isDark} onChange={toggleTheme} />
             <Button variant="outline" size="sm" asChild>
               <Link to="/verify">Verify Certification</Link>
             </Button>
@@ -89,8 +91,7 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex lg:hidden items-center gap-3">
-            <SkyToggle checked={isDark} onChange={toggleTheme} />
+          <div className="flex lg:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-foreground"
