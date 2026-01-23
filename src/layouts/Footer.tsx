@@ -25,9 +25,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">S</span>
-              </div>
+              <img src="/favicon.svg" alt="Sustainacert" className="w-10 h-10 rounded-md" />
               <span className="font-bold text-xl tracking-tight text-tiara">
                 SUSTAINACERT
               </span>
