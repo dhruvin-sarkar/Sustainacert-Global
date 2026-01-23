@@ -10,6 +10,7 @@ import LatestInsights from '@/components/sections/LatestInsights';
 import GeographicalPresence from '@/components/sections/GeographicalPresence';
 import Testimonials from '@/components/sections/Testimonials';
 import Newsletter from '@/components/sections/Newsletter';
+import FAQSection from '@/components/sections/FAQSection';
 
 const credibilityStats = [
   { label: 'Certifications Issued', value: '5,000+' },
@@ -256,6 +257,9 @@ export default function Index() {
 
       {/* Newsletter */}
       <Newsletter />
+
+      {/* FAQ Section */}
+      <FAQSection />
     </Layout>
   );
 }

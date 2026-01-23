@@ -8,7 +8,7 @@ interface MousePosition {
   y: number;
 }
 
-export default function useMousePosition(): MousePosition {
+function useMousePosition(): MousePosition {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
     x: 0,
     y: 0,
@@ -19,14 +19,10 @@ export default function useMousePosition(): MousePosition {
       setMousePosition({ x: event.clientX, y: event.clientY });
     };
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("mousemove", handleMouseMove);
-    }
+    globalThis.window?.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("mousemove", handleMouseMove);
-      }
+      globalThis.window?.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -62,16 +58,15 @@ export const HighlightGroup: React.FC<HighlightGroupProps> = ({
 
   useEffect(() => {
     initContainer();
-    window.addEventListener("resize", initContainer);
+    globalThis.window?.addEventListener("resize", initContainer);
 
     return () => {
-      window.removeEventListener("resize", initContainer);
+      globalThis.window?.removeEventListener("resize", initContainer);
     };
   }, [setBoxes]);
 
   useEffect(() => {
     onMouseMove();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mousePosition]);
 
   useEffect(() => {
@@ -119,18 +114,20 @@ interface HighlighterItemProps {
   className?: string;
 }
 
-export const HighlighterItem: React.FC<
-  PropsWithChildren<HighlighterItemProps>
-> = ({ children, className = "" }) => {
+export const HighlighterItem: React.FC<PropsWithChildren<HighlighterItemProps>> = ({ 
+  children, 
+  className = "" 
+}) => {
   return (
     <div
-      className={`relative overflow-hidden p-px ${className}`}
+      className={`relative overflow-hidden rounded-2xl p-px before:absolute before:-left-48 before:-top-48 before:z-30 before:h-96 before:w-96 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-emerald-500 before:opacity-0 before:blur-[100px] before:transition-opacity before:duration-500 after:absolute after:inset-0 after:z-10 after:rounded-2xl after:opacity-0 after:transition-opacity after:duration-500 before:hover:opacity-30 after:group-hover:opacity-100 ${className}`}
     >
       {children}
     </div>
   );
 };
 
+// Particles component remains the same...
 interface ParticlesProps {
   className?: string;
   quantity?: number;
@@ -141,9 +138,10 @@ interface ParticlesProps {
   vx?: number;
   vy?: number;
 }
+
 function hexToRgb(hex: string): number[] {
   hex = hex.replace("#", "");
-  const hexInt = parseInt(hex, 16);
+  const hexInt = Number.parseInt(hex, 16);
   const red = (hexInt >> 16) & 255;
   const green = (hexInt >> 8) & 255;
   const blue = hexInt & 255;
@@ -169,7 +167,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const animationFrameRef = useRef<number | null>(null);
   const isMountedRef = useRef<boolean>(false);
-  const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+  const dpr = typeof globalThis.window !== "undefined" ? globalThis.window.devicePixelRatio : 1;
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -178,31 +176,24 @@ export const Particles: React.FC<ParticlesProps> = ({
     }
     initCanvas();
     animate();
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", initCanvas);
-    }
+    globalThis.window?.addEventListener("resize", initCanvas);
 
     return () => {
       isMountedRef.current = false;
       if (animationFrameRef.current !== null) {
-        window.cancelAnimationFrame(animationFrameRef.current);
+        globalThis.window?.cancelAnimationFrame(animationFrameRef.current);
         animationFrameRef.current = null;
       }
-      if (typeof window !== "undefined") {
-        window.removeEventListener("resize", initCanvas);
-      }
+      globalThis.window?.removeEventListener("resize", initCanvas);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     onMouseMove();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mousePosition]);
+  }, [mousePosition.x, mousePosition.y]);
 
   useEffect(() => {
     initCanvas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
   const initCanvas = () => {
@@ -257,7 +248,7 @@ export const Particles: React.FC<ParticlesProps> = ({
     const translateY = 0;
     const size = Math.floor(Math.random() * 2) + 1;
     const alpha = 0;
-    const targetAlpha = parseFloat((Math.random() * 0.3 + 0.1).toFixed(1));
+    const targetAlpha = Number.parseFloat((Math.random() * 0.3 + 0.1).toFixed(1));
     const dx = (Math.random() - 0.5) * 0.2;
     const dy = (Math.random() - 0.5) * 0.2;
     const magnetism = 0.1 + Math.random() * 4;
@@ -322,7 +313,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   ): number => {
     const remapped =
       ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
-    return remapped > 0 ? remapped : 0;
+    return Math.max(0, remapped);
   };
 
   const animate = () => {
@@ -336,8 +327,8 @@ export const Particles: React.FC<ParticlesProps> = ({
         circle.y + circle.translateY - circle.size,
         canvasSize.current.h - circle.y - circle.translateY - circle.size,
       ];
-      const closestEdge = edge.reduce((a, b) => Math.min(a, b));
-      const remapClosestEdge = parseFloat(
+      const closestEdge = edge.reduce((a: number, b: number) => Math.min(a, b), Infinity);
+      const remapClosestEdge = Number.parseFloat(
         remapValue(closestEdge, 0, 20, 0, 1).toFixed(2),
       );
       if (remapClosestEdge > 1) {
@@ -356,6 +347,7 @@ export const Particles: React.FC<ParticlesProps> = ({
       circle.translateY +=
         (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
         ease;
+
       if (
         circle.x < -circle.size ||
         circle.x > canvasSize.current.w + circle.size ||
@@ -381,7 +373,7 @@ export const Particles: React.FC<ParticlesProps> = ({
     });
     
     if (isMountedRef.current) {
-      animationFrameRef.current = window.requestAnimationFrame(animate);
+      animationFrameRef.current = globalThis.window?.requestAnimationFrame(animate) || null;
     }
   };
 
