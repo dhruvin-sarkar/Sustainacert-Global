@@ -25,4 +25,41 @@ export default defineConfig({
       "@/data": path.resolve(__dirname, "./src/data"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1000, // Increase from default 500KB to 1000KB
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor libraries
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          
+          // Split UI components
+          ui: [
+            '@/components/ui/button',
+            '@/components/ui/card',
+            '@/components/ui/input',
+            '@/components/ui/textarea',
+            '@/components/ui/select',
+            '@/components/ui/accordion',
+            '@/components/ui/dialog',
+            '@/components/ui/tooltip',
+            '@/components/ui/toaster',
+            '@/components/ui/sonner',
+          ],
+          
+          // Split animation libraries
+          animations: ['framer-motion'],
+          
+          // Split icons
+          icons: ['lucide-react'],
+          
+          // Split utilities
+          utils: ['@/lib/utils'],
+          
+          // Split data
+          data: ['@/data/services', '@/data/faq-data', '@/data/certification-timeline-data'],
+        },
+      },
+    },
+  },
 });
