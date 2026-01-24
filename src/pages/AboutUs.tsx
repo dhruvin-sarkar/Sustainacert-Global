@@ -40,21 +40,31 @@ export default function AboutUs() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="py-20 bg-gradient-hero">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="relative py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="/landscape-shot-green-hills-val-d-orcia-tuscany-italy-gloomy-sky.jpg.jpeg"
+            alt="Sustainable green landscape in Tuscany"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        </div>
+        
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl"
+            className="max-w-3xl text-white"
           >
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
               About Us
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Global Standards, <span className="text-gradient">Trusted Certification</span>
+              Global Standards, <span className="text-emerald-400">Trusted Certification</span>
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl leading-relaxed text-white/90">
               An independent global certification, inspection, and verification body focused on 
               sustainability, ethical sourcing, and quality assurance across international supply chains.
             </p>
@@ -99,6 +109,21 @@ export default function AboutUs() {
             </motion.div>
 
             <div className="space-y-8">
+              {/* Team Image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="rounded-2xl overflow-hidden shadow-lg"
+              >
+                <img 
+                  src="/two-researches-man-woman-examine-greenery-with-tablet-all-white-greenhouse.jpg.jpeg"
+                  alt="Research team examining sustainable agriculture in greenhouse"
+                  className="w-full h-64 object-cover"
+                />
+              </motion.div>
+
               {/* Vision */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}

@@ -33,21 +33,31 @@ export default function ContactUs() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="py-20 bg-gradient-hero">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="relative py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="/technologist-food-processing-factory-controlling-process-apple-fruit-selection-production.jpg.jpeg"
+            alt="Food processing facility showing quality control and certification environment"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        </div>
+        
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl"
+            className="max-w-3xl text-white"
           >
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
               Contact Us
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              We'd Love to <span className="text-gradient">Hear From You</span>
+              We'd Love to <span className="text-emerald-400">Hear From You</span>
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl leading-relaxed text-white/90">
               Have questions about our certification services? Get in touch with our team 
               and we'll help you find the right solution.
             </p>

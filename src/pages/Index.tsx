@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Globe, CheckCircle } from 'lucide-react';
+import { ArrowRight, Shield, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InfiniteSlider } from '@/components/ui/infinite-slider';
 import Layout from '@/layouts/Layout';
@@ -23,8 +23,18 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center bg-gradient-hero overflow-hidden">
-        {/* Background Pattern */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="/aerial-photography-houses-green-field-viewing-mountain-white-gray-sky-daytime.jpg.jpeg"
+            alt="Sustainable landscape with mountains and green fields"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+        </div>
+        
+        {/* Background Pattern Overlay */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
           <div className="absolute bottom-20 left-20 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
@@ -218,21 +228,12 @@ export default function Index() {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-primary/5 to-accent/10 p-8 flex items-center justify-center">
-                <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
-                  {[Globe, Shield, CheckCircle, ArrowRight].map((Icon, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + i * 0.1 }}
-                      className="aspect-square rounded-2xl bg-card shadow-card flex items-center justify-center border border-border/50"
-                    >
-                      <Icon className="w-10 h-10 text-primary" />
-                    </motion.div>
-                  ))}
-                </div>
+              <div className="aspect-square rounded-3xl overflow-hidden">
+                <img 
+                  src="/two-researches-man-woman-examine-greenery-with-tablet-all-white-greenhouse.jpg.jpeg"
+                  alt="Professional research team in modern business environment"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-primary rounded-2xl opacity-20 blur-2xl" />
             </motion.div>

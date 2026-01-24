@@ -5,6 +5,13 @@ export const certificationTimelineData = [
     title: "Step 1",
     content: (
       <div>
+        <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+          <img 
+            src="/two-researches-man-woman-examine-greenery-with-tablet-all-white-greenhouse.jpg.jpeg"
+            alt="Application submission and consultation process"
+            className="w-full h-48 object-cover"
+          />
+        </div>
         <p className="text-neutral-100 text-sm md:text-base font-normal mb-8">
           <strong className="text-white font-semibold">Application Submission</strong>
           <br />
@@ -31,6 +38,13 @@ export const certificationTimelineData = [
     title: "Step 2",
     content: (
       <div>
+        <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+          <img 
+            src="/empty-laboratory-workspace-displays-jars-blood-samples-tools-prepared-analysis-clinical.jpg.jpeg"
+            alt="Document review and laboratory analysis process"
+            className="w-full h-48 object-cover"
+          />
+        </div>
         <p className="text-neutral-100 text-sm md:text-base font-normal mb-8">
           <strong className="text-white font-semibold">Document Review</strong>
           <br />
@@ -60,6 +74,13 @@ export const certificationTimelineData = [
     title: "Step 3",
     content: (
       <div>
+        <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+          <img 
+            src="/interior-view-steel-factory.jpg.jpeg"
+            alt="On-site audit at manufacturing facility"
+            className="w-full h-48 object-cover"
+          />
+        </div>
         <p className="text-neutral-100 text-sm md:text-base font-normal mb-8">
           <strong className="text-white font-semibold">On-site/Remote Audit</strong>
           <br />
@@ -86,6 +107,13 @@ export const certificationTimelineData = [
     title: "Step 4",
     content: (
       <div>
+        <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+          <img 
+            src="/pharmacy-industry-factory-man-worker-protective-clothing-sterile-working-conditions-operating-pharmaceutical-equipment.jpg.jpeg"
+            alt="Compliance evaluation and quality control assessment"
+            className="w-full h-48 object-cover"
+          />
+        </div>
         <p className="text-neutral-100 text-sm md:text-base font-normal mb-8">
           <strong className="text-white font-semibold">Compliance Evaluation</strong>
           <br />
@@ -112,6 +140,13 @@ export const certificationTimelineData = [
     title: "Step 5",
     content: (
       <div>
+        <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+          <img 
+            src="/technologist-food-processing-factory-controlling-process-apple-fruit-selection-production.jpg.jpeg"
+            alt="Certification decision and quality approval process"
+            className="w-full h-48 object-cover"
+          />
+        </div>
         <p className="text-neutral-100 text-sm md:text-base font-normal mb-8">
           <strong className="text-white font-semibold">Certification Decision</strong>
           <br />
@@ -138,6 +173,13 @@ export const certificationTimelineData = [
     title: "Step 6",
     content: (
       <div>
+        <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+          <img 
+            src="/shot-wind-turbines-mountains.jpg.jpeg"
+            alt="Ongoing surveillance and renewable energy certification monitoring"
+            className="w-full h-48 object-cover"
+          />
+        </div>
         <p className="text-neutral-100 text-sm md:text-base font-normal mb-8">
           <strong className="text-white font-semibold">Surveillance & Renewals</strong>
           <br />

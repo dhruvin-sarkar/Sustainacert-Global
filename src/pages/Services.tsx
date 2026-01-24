@@ -17,21 +17,31 @@ export default function Services() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="py-20 bg-gradient-hero">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="relative py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="/interior-view-steel-factory.jpg.jpeg"
+            alt="Modern steel factory interior showing industrial certification environment"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        </div>
+        
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-3xl"
+            className="max-w-3xl text-white"
           >
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
               Our Services
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Our Core <span className="text-gradient">Services</span>
+              Our Core <span className="text-emerald-400">Services</span>
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl leading-relaxed text-white/90">
               Comprehensive certification, inspection, and verification services 
               tailored to your industry and sustainability goals.
             </p>
@@ -64,19 +74,36 @@ export default function Services() {
                 transition={{ delay: index * 0.1 }}
               >
                 <Link to={service.link} className="group block h-full">
-                  <BaseCard className="p-8 shadow-card hover-lift h-full flex flex-col">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center mb-5 group-hover:shadow-glow transition-shadow">
-                      <service.icon className="w-7 h-7 text-primary-foreground" />
+                  <BaseCard className="p-0 h-full flex flex-col overflow-hidden border-0">
+                    {/* Service Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={
+                          index === 0 ? "/two-researches-man-woman-examine-greenery-with-tablet-all-white-greenhouse.jpg.jpeg" :
+                          index === 1 ? "/interior-view-steel-factory.jpg.jpeg" :
+                          "/technologist-food-processing-factory-controlling-process-apple-fruit-selection-production.jpg.jpeg"
+                        }
+                        alt={`${service.title} - Professional certification environment`}
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     </div>
-                    <h3 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed flex-1">
-                      {service.description}
-                    </p>
-                    <div className="flex items-center gap-2 text-primary font-medium mt-6 group-hover:gap-3 transition-all">
-                      Learn more
-                      <ArrowRight size={16} />
+                    
+                    {/* Service Content */}
+                    <div className="p-6 flex-1 flex flex-col">
+                      <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center mb-5">
+                        <service.icon className="w-7 h-7 text-primary-foreground" />
+                      </div>
+                      <h3 className="font-semibold text-xl mb-3">
+                        {service.title}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed flex-1">
+                        {service.description}
+                      </p>
+                      <div className="flex items-center gap-2 text-primary font-medium mt-auto">
+                        Learn more
+                        <ArrowRight size={16} />
+                      </div>
                     </div>
                   </BaseCard>
                 </Link>
