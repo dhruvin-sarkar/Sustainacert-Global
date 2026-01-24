@@ -47,20 +47,12 @@ export default function Header() {
           <SkyToggle checked={isDark} onChange={toggleTheme} />
           
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center group">
             <img 
-              src="/favicon.svg" 
-              alt="Sustainacert Logo" 
-              className="w-12 h-12 rounded-lg group-hover:scale-110 transition-transform"
+              src="/Logo.svg" 
+              alt="SUSTAINACERT - Global Standards, Trusted Certification" 
+              className="h-14 w-auto max-w-[280px] group-hover:scale-105 transition-transform"
             />
-            <div className="flex flex-col">
-              <span className="font-bold text-lg md:text-xl tracking-tight text-foreground group-hover:text-primary transition-colors">
-                SUSTAINACERT
-              </span>
-              <span className="text-xs text-muted-foreground hidden sm:block">
-                Global Standards. Trusted Certification
-              </span>
-            </div>
           </Link>
 
           {/* Desktop Navigation */}

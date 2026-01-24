@@ -12,8 +12,26 @@ interface Testimonial {
 // --- Data ---
 const testimonials: Testimonial[] = [
   {
-    text: "Sustainacert made our certification process quick and seamless. Truly professional and reliable!",
+    text: "Sustainacert has transformed our certification process. Their expertise and efficiency helped us achieve our sustainability goals faster than we ever imagined possible.",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150",
+    name: "Sofia Chen",
+    role: "CEO at GreenTech Solutions",
+  },
+  {
+    text: "The team at Sustainacert provided exceptional guidance throughout our certification journey. Their attention to detail and commitment to excellence is unmatched.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150",
+    name: "Michael Rodriguez",
+    role: "Operations Director at EcoHarvest",
+  },
+  {
+    text: "Working with Sustainacert has been a game-changer for our organization. Their comprehensive approach and industry knowledge made the entire process seamless.",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150",
+    name: "Emma Thompson",
+    role: "Sustainability Manager at PureNature",
+  },
+  {
+    text: "Sustainacert made our certification process quick and seamless. Truly professional and reliable!",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150",
     name: "Briana Patton",
     role: "Operations Manager",
   },
@@ -25,45 +43,27 @@ const testimonials: Testimonial[] = [
   },
   {
     text: "The support team is exceptional, guiding us through setup and providing ongoing assistance, ensuring our satisfaction.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150",
     name: "Saman Malik",
     role: "Customer Support Lead",
   },
   {
     text: "Fast, transparent, and professional — Sustainacert exceeded our expectations.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150",
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150&h=150",
     name: "Omar Raza",
     role: "CEO",
   },
   {
     text: "Its robust features and quick support have transformed our workflow, making us significantly more efficient.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150",
     name: "Zainab Hussain",
     role: "Project Manager",
   },
   {
     text: "The smooth implementation exceeded expectations. It streamlined processes, improving overall business performance.",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150&h=150",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150&h=150",
     name: "Aliza Khan",
     role: "Business Analyst",
-  },
-  {
-    text: "Our business functions improved with a user-friendly design and positive customer feedback.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150",
-    name: "Farhan Siddiqui",
-    role: "Marketing Director",
-  },
-  {
-    text: "They delivered a solution that exceeded expectations, understanding our needs and enhancing our operations.",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150&h=150",
-    name: "Sana Sheikh",
-    role: "Sales Manager",
-  },
-  {
-    text: "Using this ERP, our online presence and conversions significantly improved, boosting business performance.",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150",
-    name: "Hassan Ali",
-    role: "E-commerce Manager",
   },
 ];
 

@@ -34,25 +34,16 @@ export default function Footer() {
         <div className="py-12 border-b border-emerald-500/10">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
             
-            {/* Left: Company Description - REVERTED TO ORIGINAL */}
+            {/* Left: Company Description */}
             <div className="flex-1 max-w-2xl">
-              <div className="flex items-center gap-3 mb-4">
-                <img 
-                  src="/favicon.svg" 
-                  alt="SUSTAINACERT" 
-                  className="w-12 h-12 rounded-lg group-hover:scale-110 transition-transform"
-                />
-                <h3 className="text-2xl font-bold text-white tracking-tight">SUSTAINACERT</h3>
-              </div>
               <p className="text-slate-300 leading-relaxed text-sm">
                 An independent global certification, inspection, and verification body focused on sustainability, ethical sourcing, and quality assurance across international supply chains.
               </p>
             </div>
 
-            {/* Right: Social Links - TEXT BELOW ICONS */}
-            <div className="flex flex-col items-start lg:items-end">
+            {/* Right: Social Links */}
+            <div className="flex flex-col items-start lg:items-end mt-16">
               <SocialLinks socials={socialLinksData} />
-              <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider mt-4">Connect With Us</h4>
             </div>
           </div>
         </div>
