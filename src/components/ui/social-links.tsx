@@ -3,10 +3,10 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { SocialIcon } from "./social-icons";
 
 export interface Social {
   name: string;
-  image: string;
   url: string;
 }
 
@@ -43,7 +43,7 @@ export function SocialLinks({ socials, className, ...props }: SocialLinksProps) 
       {socials.map((social, index) => (
         <div
           className={cn(
-            "relative cursor-pointer px-6 py-3 transition-opacity duration-200", // Increased padding from px-5 py-2 to px-6 py-3
+            "relative cursor-pointer px-6 py-3 transition-opacity duration-200",
             hoveredSocial && hoveredSocial !== social.name
               ? "opacity-50"
               : "opacity-100"
@@ -59,7 +59,7 @@ export function SocialLinks({ socials, className, ...props }: SocialLinksProps) 
             window.open(social.url, '_blank', 'noopener,noreferrer');
           }}
         >
-          <span className="block text-base font-medium text-slate-300 hover:text-emerald-300 transition-colors select-none">
+          <span className="block text-base font-medium text-slate-300 hover:text-emerald-500 transition-colors select-none">
             {social.name}
           </span>
           <AnimatePresence>
@@ -68,11 +68,9 @@ export function SocialLinks({ socials, className, ...props }: SocialLinksProps) 
                 className="absolute bottom-0 left-0 right-0 flex h-full w-full items-center justify-center pointer-events-none"
                 animate={animation}
               >
-                <motion.img
+                <motion.div
                   key={social.name}
-                  src={social.image}
-                  alt={social.name}
-                  className="size-16 object-contain drop-shadow-2xl"
+                  className="size-16 flex items-center justify-center drop-shadow-2xl text-emerald-500"
                   initial={{
                     y: -40,
                     rotate: rotation,
@@ -82,7 +80,9 @@ export function SocialLinks({ socials, className, ...props }: SocialLinksProps) 
                   animate={{ y: -50, opacity: 1, filter: "blur(0px)" }}
                   exit={{ y: -40, opacity: 0, filter: "blur(2px)" }}
                   transition={{ duration: 0.2 }}
-                />
+                >
+                  <SocialIcon name={social.name} className="size-12" />
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
