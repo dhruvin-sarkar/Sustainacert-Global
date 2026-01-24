@@ -77,15 +77,20 @@ export default function Services() {
                   <BaseCard className="p-0 h-full flex flex-col overflow-hidden border-0">
                     {/* Service Image */}
                     <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src={
-                          index === 0 ? "/two-researches-man-woman-examine-greenery-with-tablet-all-white-greenhouse.jpg.jpeg" :
-                          index === 1 ? "/interior-view-steel-factory.jpg.jpeg" :
-                          "/technologist-food-processing-factory-controlling-process-apple-fruit-selection-production.jpg.jpeg"
-                        }
-                        alt={`${service.title} - Professional certification environment`}
-                        className="w-full h-48 object-cover"
-                      />
+                      {(() => {
+                        const imageMap = {
+                          0: "/two-researches-man-woman-examine-greenery-with-tablet-all-white-greenhouse.jpg.jpeg",
+                          1: "/interior-view-steel-factory.jpg.jpeg",
+                          2: "/technologist-food-processing-factory-controlling-process-apple-fruit-selection-production.jpg.jpeg"
+                        };
+                        return (
+                          <img 
+                            src={imageMap[index as keyof typeof imageMap]}
+                            alt={`${service.title} - Professional certification environment`}
+                            className="w-full h-48 object-cover"
+                          />
+                        );
+                      })()}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     </div>
                     

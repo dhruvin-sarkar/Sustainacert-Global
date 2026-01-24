@@ -7,19 +7,19 @@ import { Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FAQItem {
-  id: number;
-  question: string;
-  answer: string;
-  icon?: string;
-  iconPosition?: "left" | "right";
+  readonly id: number;
+  readonly question: string;
+  readonly answer: string;
+  readonly icon?: string;
+  readonly iconPosition?: "left" | "right";
 }
 
 interface FaqAccordionProps {
-  data: FAQItem[];
-  className?: string;
-  timestamp?: string;
-  questionClassName?: string;
-  answerClassName?: string;
+  readonly data: FAQItem[];
+  readonly className?: string;
+  readonly timestamp?: string;
+  readonly questionClassName?: string;
+  readonly answerClassName?: string;
 }
 
 export function FaqAccordion({
