@@ -54,12 +54,14 @@ const ScrollExpandMedia = ({
         e.preventDefault();
       } else if (!mediaFullyExpanded) {
         e.preventDefault();
-        const scrollDelta = e.deltaY * 0.0009;
+        const scrollDelta = e.deltaY * 0.002; // Increased significantly for much better responsiveness
         const newProgress = Math.min(
           Math.max(scrollProgress + scrollDelta, 0),
           1
         );
-        setScrollProgress(newProgress);
+        // Add easing for smoother progression
+        const easedProgress = newProgress * newProgress * (3 - 2 * newProgress); // Smoothstep easing
+        setScrollProgress(easedProgress);
 
         if (newProgress >= 1) {
           setMediaFullyExpanded(true);
@@ -92,13 +94,15 @@ const ScrollExpandMedia = ({
       } else if (!mediaFullyExpanded) {
         e.preventDefault();
         // Increase sensitivity for mobile, especially when scrolling back
-        const scrollFactor = deltaY < 0 ? 0.008 : 0.005; // Higher sensitivity for scrolling back
+        const scrollFactor = deltaY < 0 ? 0.02 : 0.015; // Significantly increased for much better touch responsiveness
         const scrollDelta = deltaY * scrollFactor;
         const newProgress = Math.min(
           Math.max(scrollProgress + scrollDelta, 0),
           1
         );
-        setScrollProgress(newProgress);
+        // Add easing for smoother progression
+        const easedProgress = newProgress * newProgress * (3 - 2 * newProgress); // Smoothstep easing
+        setScrollProgress(easedProgress);
 
         if (newProgress >= 1) {
           setMediaFullyExpanded(true);
@@ -174,10 +178,15 @@ const ScrollExpandMedia = ({
 
   const mediaWidth = 300 + scrollProgress * (isMobileState ? 650 : 1250);
   const mediaHeight = 400 + scrollProgress * (isMobileState ? 200 : 400);
-  const textTranslateX = scrollProgress * (isMobileState ? 180 : 150);
+  // Use cubic easing for more dramatic text split
+  const textEasing = scrollProgress * scrollProgress * scrollProgress;
+  const textTranslateX = textEasing * (isMobileState ? 200 : 180);
 
-  const firstWord = title ? title.split(' ')[0] : '';
-  const restOfTitle = title ? title.split(' ').slice(1).join(' ') : '';
+  // Split title into two balanced parts
+  const titleWords = title ? title.split(' ') : [];
+  const midPoint = Math.ceil(titleWords.length / 2);
+  const firstHalf = titleWords.slice(0, midPoint).join(' ');
+  const secondHalf = titleWords.slice(midPoint).join(' ');
 
   return (
     <div
@@ -206,8 +215,10 @@ const ScrollExpandMedia = ({
 
           <div className='container mx-auto flex flex-col items-center justify-start relative z-10'>
             <div className='flex flex-col items-center justify-center w-full h-[100dvh] relative'>
-              <div
-                className='absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-none rounded-2xl'
+              <motion.div
+                className='absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl'
+                animate={{ opacity: mediaFullyExpanded ? 0 : 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
                 style={{
                   width: `${mediaWidth}px`,
                   height: `${mediaHeight}px`,
@@ -311,7 +322,7 @@ const ScrollExpandMedia = ({
                     </p>
                   )}
                 </div>
-              </div>
+              </motion.div>
 
               <div
                 className={`flex items-center justify-center text-center gap-4 w-full relative z-10 transition-none flex-col ${
@@ -322,13 +333,13 @@ const ScrollExpandMedia = ({
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
-                  {firstWord}
+                  {firstHalf}
                 </motion.h2>
                 <motion.h2
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
                   style={{ transform: `translateX(${textTranslateX}vw)` }}
                 >
-                  {restOfTitle}
+                  {secondHalf}
                 </motion.h2>
               </div>
             </div>
