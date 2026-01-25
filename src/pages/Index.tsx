@@ -4,6 +4,7 @@ import { ArrowRight, Shield, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InfiniteSlider } from '@/components/ui/infinite-slider';
 import Layout from '@/layouts/Layout';
+import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
 import ServicesPreview from '@/components/sections/ServicesPreview';
 import CertificationProcess from '@/components/sections/CertificationProcess';
 import LatestInsights from '@/components/sections/LatestInsights';
@@ -16,16 +17,42 @@ import FAQSection from '@/components/sections/FAQSection';
 export default function Index() {
   return (
     <Layout>
+      {/* NEW: Scroll Expansion Hero - Appears FIRST */}
+      <ScrollExpandMedia
+        mediaType="video"
+        mediaSrc="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1"
+        posterSrc="https://images.pexels.com/videos/5752729/space-earth-universe-cosmos-5752729.jpeg"
+        bgImageSrc="/landscape-shot-green-hills-val-d-orcia-tuscany-italy-gloomy-sky.jpg.jpeg"
+        title="GLOBAL STANDARDS TRUSTED CERTIFICATION"
+        date="Independent Global Certification Body"
+        scrollToExpand="Scroll to Explore Our Services"
+        textBlend={false}
+      >
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h2 className="text-3xl font-bold mb-6">
+            Welcome to SUSTAINACERT
+          </h2>
+          <p className="text-lg mb-8">
+            Independent certification, inspection, and verification services.
+          </p>
+        </div>
+      </ScrollExpandMedia>
+
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img 
-            src="/aerial-photography-houses-green-field-viewing-mountain-white-gray-sky-daytime.jpg.jpeg"
-            alt="Sustainable landscape with mountains and green fields"
+        {/* Background Video - Replace existing <img> tag with this */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
             className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+            poster="https://images.pexels.com/videos/5752729/space-earth-universe-cosmos-5752729.jpeg"
+          >
+            <source src="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/40" />
         </div>
         
         {/* Background Pattern Overlay */}
