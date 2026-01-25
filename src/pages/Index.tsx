@@ -12,12 +12,6 @@ import Testimonials from '@/components/sections/Testimonials';
 import Newsletter from '@/components/sections/Newsletter';
 import FAQSection from '@/components/sections/FAQSection';
 
-const credibilityStats = [
-  { label: 'Certifications Issued', value: '5,000+' },
-  { label: 'Countries Served', value: '50+' },
-  { label: 'Years of Excellence', value: '10+' },
-  { label: 'Expert Auditors', value: '200+' },
-];
 
 export default function Index() {
   return (
@@ -155,28 +149,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Credibility Band */}
-      <section className="py-8 bg-gable-green">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {credibilityStats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-mountain-meadow mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-gothic text-sm">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* About Section */}
       <section className="py-20">
