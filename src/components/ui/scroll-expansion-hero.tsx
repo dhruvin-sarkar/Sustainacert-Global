@@ -18,6 +18,7 @@ interface ScrollExpandMediaProps {
   scrollToExpand?: string;
   textBlend?: boolean;
   children?: ReactNode;
+  onExpansionComplete?: () => void;
 }
 
 const ScrollExpandMedia = ({
@@ -30,6 +31,7 @@ const ScrollExpandMedia = ({
   scrollToExpand,
   textBlend,
   children,
+  onExpansionComplete,
 }: ScrollExpandMediaProps) => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [showContent, setShowContent] = useState<boolean>(false);
@@ -62,6 +64,12 @@ const ScrollExpandMedia = ({
         if (newProgress >= 1) {
           setMediaFullyExpanded(true);
           setShowContent(true);
+          
+          if (onExpansionComplete) {
+            setTimeout(() => {
+              onExpansionComplete();
+            }, 1000);
+          }
         } else if (newProgress < 0.75) {
           setShowContent(false);
         }
@@ -95,6 +103,12 @@ const ScrollExpandMedia = ({
         if (newProgress >= 1) {
           setMediaFullyExpanded(true);
           setShowContent(true);
+          
+          if (onExpansionComplete) {
+            setTimeout(() => {
+              onExpansionComplete();
+            }, 1000);
+          }
         } else if (newProgress < 0.75) {
           setShowContent(false);
         }
