@@ -62,7 +62,7 @@ src/
 - **Verify** - Certificate verification
 - **News & Blogs** - Articles and insights
 
-## 📦 Build Optimization
+## Build Optimization
 
 The project uses advanced build optimization:
 
@@ -72,7 +72,7 @@ The project uses advanced build optimization:
 - **Bundle Analysis:** Built-in bundle analyzer
 - **Performance:** Lighthouse scores 95+
 
-## 🔧 Configuration
+## Configuration
 
 - **Vite:** `vite.config.ts` - Build tool configuration
 - **TypeScript:** `tsconfig.json` - Strict type checking
@@ -80,11 +80,11 @@ The project uses advanced build optimization:
 - **ESLint:** `eslint.config.js` - Code quality rules
 - **PostCSS:** `postcss.config.js` - CSS processing
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -92,10 +92,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📞 Support
+## Support
 
 For support, email dhruvinsarkar@outlook.com or create an issue in the repository.
 
 ---
 
-**Built with ❤️ using modern web technologies**
+**Built with ❤️ 
+- Sincerely Dhruvin Sarkar
