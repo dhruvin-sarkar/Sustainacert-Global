@@ -1,49 +1,19 @@
-# 🌍 SUSTAINACERT
+# SUSTAINACERT
 
 > **Global Standards. Trusted Certification.**
 
 A professional certification website built with React 18, TypeScript, and Tailwind CSS. Features comprehensive visual design with professional imagery, optimized performance, and modern development practices.
 
-## ✨ Features
+## Features
 
-- 🎨 **Professional Design** - Modern UI with 13+ high-quality professional images
-- 🌓 **Dark/Light Theme** - Seamless theme switching with custom toggle
-- 📱 **Responsive Design** - Optimized for all screen sizes and devices
-- ⚡ **Performance Optimized** - Code splitting, lazy loading, and optimized chunks
-- 🔍 **SEO Ready** - Meta tags, semantic HTML, and search engine optimization
-- 🎯 **TypeScript** - Full type safety with strict mode enabled
-- 🧩 **Component Library** - Built with Shadcn/ui and Radix UI components
-- 📊 **Interactive Elements** - Framer Motion animations and micro-interactions
-
-## 🚀 Quick Start
-
-```bash
-# Clone repository
-git clone https://github.com/dhruvin-sarkar/Sustainacert-main.git
-cd Sustainacert-main
-
-# Install dependencies
-npm install
-
-# Create environment file
-cp .env.example .env
-# Edit .env with your settings
-
-# Start development server
-npm run dev
-```
-
-Open [http://localhost:8080](http://localhost:8080) to view the application.
-
-## 🏗️ Build for Production
-
-```bash
-# Build for production
-npm run build
-
-# Preview production build locally
-npm run preview
-```
+- **Professional Design** - Modern UI with 13+ high-quality professional images
+- **Dark/Light Theme** - Seamless theme switching with custom toggle
+- **Responsive Design** - Optimized for all screen sizes and devices
+- **Performance Optimized** - Code splitting, lazy loading, and optimized chunks
+- **SEO Ready** - Meta tags, semantic HTML, and search engine optimization
+- **TypeScript** - Full type safety with strict mode enabled
+- **Component Library** - Built with Shadcn/ui and Radix UI components
+- **Interactive Elements** - Framer Motion animations and micro-interactions
 
 ## 📁 Project Structure
 
@@ -62,7 +32,7 @@ src/
 └── utils/              # Utility functions
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework:** React 18 with TypeScript
 - **Build Tool:** Vite
@@ -73,7 +43,7 @@ src/
 - **Forms:** React Hook Form + Zod
 - **State Management:** React Context + TanStack Query
 
-## 🎨 Design System
+## Design System
 
 - **Primary Colors:** Emerald green palette
 - **Typography:** Manrope font family
@@ -81,7 +51,7 @@ src/
 - **Components:** Reusable design system
 - **Dark Mode:** Full theme support
 
-## 📱 Pages
+## Pages
 
 - **Home** - Landing page with hero, services, testimonials
 - **About Us** - Company information and team
@@ -91,43 +61,6 @@ src/
 - **Apply** - Certification application
 - **Verify** - Certificate verification
 - **News & Blogs** - Articles and insights
-
-## 🌐 Environment Variables
-
-Copy `.env.example` to `.env` and configure:
-
-```env
-# API Configuration
-VITE_API_URL=http://localhost:3000/api
-
-# Application Configuration
-VITE_APP_NAME=SUSTAINACERT
-VITE_APP_DESCRIPTION=Global Standards. Trusted Certification.
-
-# Analytics
-VITE_ENABLE_ANALYTICS=false
-VITE_GA_TRACKING_ID=
-
-# Feature Flags
-VITE_ENABLE_DEBUG_MODE=false
-VITE_ENABLE_MOCK_API=true
-```
-
-## 🧪 Development
-
-```bash
-# Run development server
-npm run dev
-
-# Run type checking
-npm run type-check
-
-# Run linting
-npm run lint
-
-# Fix linting issues
-npm run lint:fix
-```
 
 ## 📦 Build Optimization
 
