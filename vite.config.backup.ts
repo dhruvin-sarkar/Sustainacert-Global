@@ -8,16 +8,7 @@ export default defineConfig({
     host: "::",
     port: 8080,
   },
-  plugins: [
-    react(),
-    // Uncomment after installing: npm install -D rollup-plugin-visualizer
-    // visualizer({
-    //   open: true,
-    //   gzipSize: true,
-    //   brotliSize: true,
-    //   filename: 'dist/stats.html',
-    // }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -35,51 +26,40 @@ export default defineConfig({
     },
   },
   build: {
-    target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug'],
-      },
-    },
-    chunkSizeWarningLimit: 1000,
-    cssCodeSplit: true,
-    sourcemap: false,
-    assetsInlineLimit: 4096,
+    chunkSizeWarningLimit: 1000, // Increase from default 500KB to 1000KB
     rollupOptions: {
       output: {
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
-          // Core vendor libraries
+          // Split vendor libraries
           vendor: ['react', 'react-dom', 'react-router-dom'],
           
-          // Radix UI components
-          'radix-ui': [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-select',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-tooltip',
+          // Split UI components
+          ui: [
+            '@/components/ui/button',
+            '@/components/ui/card',
+            '@/components/ui/input',
+            '@/components/ui/textarea',
+            '@/components/ui/select',
+            '@/components/ui/accordion',
+            '@/components/ui/dialog',
+            '@/components/ui/tooltip',
+            '@/components/ui/toaster',
+            '@/components/ui/sonner',
           ],
           
-          // Animation libraries
+          // Split animation libraries
           animations: ['framer-motion'],
           
-          // Icons
+          // Split icons
           icons: ['lucide-react'],
           
-          // Data and utilities
+          // Split utilities
+          utils: ['@/lib/utils'],
+          
+          // Split data
           data: ['@/data/services', '@/data/faq-data', '@/data/certification-timeline-data'],
         },
       },
     },
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
   },
 });
