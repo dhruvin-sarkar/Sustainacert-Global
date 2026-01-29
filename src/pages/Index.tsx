@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Shield, CheckCircle } from 'lucide-react';
@@ -6,13 +6,16 @@ import { Button } from '@/components/ui/button';
 import { InfiniteSlider } from '@/components/ui/infinite-slider';
 import Layout from '@/layouts/Layout';
 import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
-import ServicesPreview from '@/components/sections/ServicesPreview';
-import CertificationProcess from '@/components/sections/CertificationProcess';
-import LatestInsights from '@/components/sections/LatestInsights';
-import GeographicalPresence from '@/components/sections/GeographicalPresence';
-import Testimonials from '@/components/sections/Testimonials';
-import Newsletter from '@/components/sections/Newsletter';
-import FAQSection from '@/components/sections/FAQSection';
+import { SectionLoader } from '@/components/ui/skeleton';
+
+// Lazy load below-the-fold sections for better initial load performance
+const ServicesPreview = lazy(() => import('@/components/sections/ServicesPreview'));
+const CertificationProcess = lazy(() => import('@/components/sections/CertificationProcess'));
+const LatestInsights = lazy(() => import('@/components/sections/LatestInsights'));
+const GeographicalPresence = lazy(() => import('@/components/sections/GeographicalPresence'));
+const Testimonials = lazy(() => import('@/components/sections/Testimonials'));
+const Newsletter = lazy(() => import('@/components/sections/Newsletter'));
+const FAQSection = lazy(() => import('@/components/sections/FAQSection'));
 
 export default function Index() {
   const [expansionComplete, setExpansionComplete] = useState(false);
@@ -274,13 +277,33 @@ export default function Index() {
 
               {/* All remaining sections with bg-background to cover video */}
               <div className="relative z-20 bg-background">
-                <ServicesPreview />
-                <CertificationProcess />
-                <LatestInsights />
-                <GeographicalPresence />
-                <Testimonials />
-                <Newsletter />
-                <FAQSection />
+                <Suspense fallback={<SectionLoader />}>
+                  <ServicesPreview />
+                </Suspense>
+                
+                <Suspense fallback={<SectionLoader />}>
+                  <CertificationProcess />
+                </Suspense>
+                
+                <Suspense fallback={<SectionLoader />}>
+                  <LatestInsights />
+                </Suspense>
+                
+                <Suspense fallback={<SectionLoader />}>
+                  <GeographicalPresence />
+                </Suspense>
+                
+                <Suspense fallback={<SectionLoader />}>
+                  <Testimonials />
+                </Suspense>
+                
+                <Suspense fallback={<SectionLoader />}>
+                  <Newsletter />
+                </Suspense>
+                
+                <Suspense fallback={<SectionLoader />}>
+                  <FAQSection />
+                </Suspense>
               </div>
             </Layout>
           </motion.div>

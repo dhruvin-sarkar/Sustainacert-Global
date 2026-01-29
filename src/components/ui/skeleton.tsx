@@ -48,4 +48,15 @@ function TextSkeleton({ lines = 3, className }: { lines?: number; className?: st
   );
 }
 
-export { Skeleton, CardSkeleton, ListSkeleton, PageSkeleton, TextSkeleton };
+function SectionLoader() {
+  return (
+    <div className="w-full py-20 flex items-center justify-center">
+      <div className="space-y-4 text-center">
+        <div className="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mx-auto" />
+        <p className="text-muted-foreground text-sm">Loading section...</p>
+      </div>
+    </div>
+  );
+}
+
+export { Skeleton, CardSkeleton, ListSkeleton, PageSkeleton, TextSkeleton, SectionLoader };
