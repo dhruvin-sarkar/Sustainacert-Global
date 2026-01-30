@@ -1,4 +1,7 @@
-# SUSTAINACERT
+
+# Sustainacert-Global
+>>>>>>> 7dee917a6f58b751c608ccb5d8dd3db97db519f4
+# SUSTAINACERT-GLOBAL
 
 > **Global Standards. Trusted Certification.**
 
@@ -100,3 +103,6 @@ For support, email dhruvinsarkar@outlook.com or create an issue in the repositor
 
 **Built with ❤️ 
 - Sincerely Dhruvin Sarkar
+=======
+# Sustainacert-Global
+>>>>>>> 7dee917a6f58b751c608ccb5d8dd3db97db519f4
