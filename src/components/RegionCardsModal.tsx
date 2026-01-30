@@ -39,10 +39,10 @@ export default function RegionCardsModal({ region, onClose }: RegionCardsModalPr
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute -top-16 right-0 p-4 rounded-full bg-slate-800/90 hover:bg-emerald-600 border-2 border-slate-600/50 hover:border-emerald-500 transition-all duration-300 hover:scale-110 hover:rotate-90 z-50 shadow-2xl group"
+            className="absolute top-4 right-4 p-3 rounded-full bg-slate-800/90 hover:bg-emerald-600 border-2 border-slate-600/50 hover:border-emerald-500 transition-all duration-300 hover:scale-110 hover:rotate-90 z-50 shadow-2xl group"
             aria-label="Close regional information modal"
           >
-            <X size={24} className="text-slate-300 group-hover:text-white transition-colors" />
+            <X size={20} className="text-slate-300 group-hover:text-white transition-colors" />
           </button>
 
           <header className="text-center mb-14">
@@ -69,18 +69,10 @@ export default function RegionCardsModal({ region, onClose }: RegionCardsModalPr
 
             {/* RIGHT: Main Hub Location */}
             <aside className="flex flex-col items-center justify-center" aria-label="Regional information">
-              <div className="mb-6 flex items-center gap-3">
-                <div 
-                  className="w-1 h-8 rounded-full"
-                  style={{ backgroundColor: region.color }}
-                />
-                <h3 className="text-xl font-bold text-slate-300 tracking-widest uppercase">
+              <div className="mb-6">
+                <h3 className="text-xl font-bold text-slate-300 tracking-widest uppercase text-center">
                   Main Hub Location
                 </h3>
-                <div 
-                  className="w-1 h-8 rounded-full"
-                  style={{ backgroundColor: region.color }}
-                />
               </div>
               <div className="scale-175 transform-gpu">
                 <LocationMap 
