@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Shield, CheckCircle } from 'lucide-react';
@@ -16,6 +16,18 @@ const GeographicalPresence = lazy(() => import('@/components/sections/Geographic
 const Testimonials = lazy(() => import('@/components/sections/Testimonials'));
 const Newsletter = lazy(() => import('@/components/sections/Newsletter'));
 const FAQSection = lazy(() => import('@/components/sections/FAQSection'));
+
+// Memoize trusted partners data to prevent recreation on every render
+const trustedPartners = [
+  { src: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=80&fit=crop&crop=center", alt: "ISO Certification" },
+  { src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=80&fit=crop&crop=center", alt: "Global Standards" },
+  { src: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=200&h=80&fit=crop&crop=center", alt: "Quality Assurance" },
+  { src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=80&fit=crop&crop=center", alt: "Sustainability" },
+  { src: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=80&fit=crop&crop=center", alt: "Environmental Standards" },
+  { src: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=200&h=80&fit=crop&crop=center", alt: "Compliance" },
+];
+
+const companyValues = ['Independent & Impartial', 'Globally Recognized', 'Sustainability Driven', 'Technology Enabled'];
 
 export default function Index() {
   const [expansionComplete, setExpansionComplete] = useState(false);
@@ -35,6 +47,32 @@ export default function Index() {
       setShowHeroContent(true);
     }, 800);
   };
+
+  // Memoize partner slides to prevent recreation
+  const partnerSlides = useMemo(() => 
+    trustedPartners.map((partner, index) => (
+      <div key={index} className="flex items-center justify-center h-16 px-8">
+        <img
+          src={partner.src}
+          alt={partner.alt}
+          className="h-12 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
+          loading="lazy"
+        />
+      </div>
+    )),
+    []
+  );
+
+  // Memoize value items
+  const valueItems = useMemo(() => 
+    companyValues.map((item) => (
+      <div key={item} className="flex items-center gap-3">
+        <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+        <span className="text-sm font-medium">{item}</span>
+      </div>
+    )),
+    []
+  );
 
   return (
     <>
@@ -166,48 +204,7 @@ export default function Index() {
                     </h3>
                   </motion.div>
                   <InfiniteSlider gap={32} duration={30} reverse className="w-full">
-                    <div className="flex items-center justify-center h-16 px-8">
-                      <img
-                        src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=80&fit=crop&crop=center"
-                        alt="ISO Certification"
-                        className="h-12 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
-                      />
-                    </div>
-                    <div className="flex items-center justify-center h-16 px-8">
-                      <img
-                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=80&fit=crop&crop=center"
-                        alt="Global Standards"
-                        className="h-12 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
-                      />
-                    </div>
-                    <div className="flex items-center justify-center h-16 px-8">
-                      <img
-                        src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=200&h=80&fit=crop&crop=center"
-                        alt="Quality Assurance"
-                        className="h-12 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
-                      />
-                    </div>
-                    <div className="flex items-center justify-center h-16 px-8">
-                      <img
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=80&fit=crop&crop=center"
-                        alt="Sustainability"
-                        className="h-12 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
-                      />
-                    </div>
-                    <div className="flex items-center justify-center h-16 px-8">
-                      <img
-                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=80&fit=crop&crop=center"
-                        alt="Environmental Standards"
-                        className="h-12 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
-                      />
-                    </div>
-                    <div className="flex items-center justify-center h-16 px-8">
-                      <img
-                        src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=200&h=80&fit=crop&crop=center"
-                        alt="Compliance"
-                        className="h-12 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
-                      />
-                    </div>
+                    {partnerSlides}
                   </InfiniteSlider>
                 </div>
               </section>
@@ -239,12 +236,7 @@ export default function Index() {
                       </p>
 
                       <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                        {['Independent & Impartial', 'Globally Recognized', 'Sustainability Driven', 'Technology Enabled'].map((item) => (
-                          <div key={item} className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-sm font-medium">{item}</span>
-                          </div>
-                        ))}
+                        {valueItems}
                       </div>
 
                       <Button asChild>
@@ -267,6 +259,7 @@ export default function Index() {
                           src="/two-researches-man-woman-examine-greenery-with-tablet-all-white-greenhouse.jpg.jpeg"
                           alt="Professional research team in modern business environment"
                           className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       </div>
                       <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-primary rounded-2xl opacity-20 blur-2xl" />
