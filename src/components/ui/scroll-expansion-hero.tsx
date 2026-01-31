@@ -354,27 +354,45 @@ const ScrollExpandMedia = ({
                 }`}
               >
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
-                  animate={{
-                    x: [-textTranslateX * 10, 0],
+                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none absolute'
+                  initial={{ x: -textTranslateX * 10, opacity: 0 }}
+                  animate={{ 
+                    x: mediaFullyExpanded ? -150 : 0,
+                    y: mediaFullyExpanded ? -300 : 0,
+                    scale: mediaFullyExpanded ? 0.6 : 1,
+                    opacity: mediaFullyExpanded ? 0 : 1,
                   }}
                   transition={{ 
-                    duration: 0.8, 
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                    delay: 0.1
+                    duration: mediaFullyExpanded ? 0.6 : 0.8,
+                    ease: "easeInOut",
+                    delay: mediaFullyExpanded ? 0.8 : 0.1,
+                  }}
+                  style={{
+                    top: mediaFullyExpanded ? '50%' : 'auto',
+                    left: mediaFullyExpanded ? '25%' : '50%',
+                    transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'translate(-50%, -50%)',
                   }}
                 >
                   {firstHalf}
                 </motion.h2>
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
-                  animate={{
-                    x: [textTranslateX * 10, 0],
+                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none absolute'
+                  initial={{ x: textTranslateX * 10, opacity: 0 }}
+                  animate={{ 
+                    x: mediaFullyExpanded ? 150 : 0,
+                    y: mediaFullyExpanded ? -250 : 0,
+                    scale: mediaFullyExpanded ? 0.6 : 1,
+                    opacity: mediaFullyExpanded ? 0 : 1,
                   }}
                   transition={{ 
-                    duration: 0.8, 
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                    delay: 0.2
+                    duration: mediaFullyExpanded ? 0.6 : 0.8,
+                    ease: "easeInOut",
+                    delay: mediaFullyExpanded ? 0.8 : 0.2,
+                  }}
+                  style={{
+                    top: mediaFullyExpanded ? '50%' : 'auto',
+                    left: mediaFullyExpanded ? '75%' : '50%',
+                    transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'translate(-50%, -50%)',
                   }}
                 >
                   {secondHalf}
