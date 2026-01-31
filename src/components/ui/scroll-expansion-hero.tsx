@@ -19,7 +19,6 @@ interface ScrollExpandMediaProps {
   textBlend?: boolean;
   children?: ReactNode;
   onExpansionComplete?: () => void;
-  onTextReady?: (title: string, date: string) => void;
 }
 
 const ScrollExpandMedia = ({
@@ -33,7 +32,6 @@ const ScrollExpandMedia = ({
   textBlend,
   children,
   onExpansionComplete,
-  onTextReady,
 }: ScrollExpandMediaProps) => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [showContent, setShowContent] = useState<boolean>(false);
@@ -47,13 +45,7 @@ const ScrollExpandMedia = ({
     setScrollProgress(0);
     setShowContent(false);
     setMediaFullyExpanded(false);
-    
-    // Notify parent component when text is ready
-    if (title && date && onTextReady) {
-      console.log('Calling onTextReady with:', title, date); // Debug log
-      onTextReady(title, date);
-    }
-  }, [title, date, onTextReady]);
+  }, []);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -186,15 +178,12 @@ const ScrollExpandMedia = ({
 
   const mediaWidth = 300 + scrollProgress * (isMobileState ? 650 : 1250);
   const mediaHeight = 400 + scrollProgress * (isMobileState ? 200 : 400);
-  // Use cubic easing for more dramatic text split
-  const textEasing = scrollProgress * scrollProgress * scrollProgress;
-  const textTranslateX = textEasing * (isMobileState ? 200 : 180);
+  const textTranslateX = scrollProgress * (isMobileState ? 120 : 100);
+  
+  // Split title into two lines as requested: "GLOBAL STANDARDS" and "TRUSTED CERTIFICATION"
+  const firstLine = title ? title.split(' ').slice(0, 2).join(' ') : '';
+  const secondLine = title ? title.split(' ').slice(2).join(' ') : '';
 
-  // Split title into two balanced parts
-  const titleWords = title ? title.split(' ') : [];
-  const midPoint = Math.ceil(titleWords.length / 2);
-  const firstHalf = titleWords.slice(0, midPoint).join(' ');
-  const secondHalf = titleWords.slice(midPoint).join(' ');
 
   return (
     <div
@@ -355,43 +344,15 @@ const ScrollExpandMedia = ({
               >
                 <motion.h2
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
-                  initial={{ x: -textTranslateX * 10, opacity: 0 }}
-                  animate={{ 
-                    x: mediaFullyExpanded ? -400 : 0,
-                    opacity: mediaFullyExpanded ? 0 : 1,
-                  }}
-                  transition={{ 
-                    duration: 0.8,
-                    ease: "easeInOut",
-                    delay: 0.1,
-                  }}
-                  style={{
-                    position: mediaFullyExpanded ? 'absolute' : 'static',
-                    top: mediaFullyExpanded ? '20%' : 'auto',
-                    left: mediaFullyExpanded ? '10%' : 'auto',
-                  }}
+                  style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
-                  {firstHalf}
+                  {firstLine}
                 </motion.h2>
                 <motion.h2
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
-                  initial={{ x: textTranslateX * 10, opacity: 0 }}
-                  animate={{ 
-                    x: mediaFullyExpanded ? -100 : 0,
-                    opacity: mediaFullyExpanded ? 0 : 1,
-                  }}
-                  transition={{ 
-                    duration: 0.8,
-                    ease: "easeInOut",
-                    delay: 0.2,
-                  }}
-                  style={{
-                    position: mediaFullyExpanded ? 'absolute' : 'static',
-                    top: mediaFullyExpanded ? '35%' : 'auto',
-                    left: mediaFullyExpanded ? '10%' : 'auto',
-                  }}
+                  style={{ transform: `translateX(${textTranslateX}vw)` }}
                 >
-                  {secondHalf}
+                  {secondLine}
                 </motion.h2>
               </div>
             </div>
