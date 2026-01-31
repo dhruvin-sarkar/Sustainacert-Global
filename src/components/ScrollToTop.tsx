@@ -6,7 +6,8 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     // Scroll to top instantly on route change
-    window.scrollTo(0, 0);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, left: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   }, [pathname]);
 
   return null; // This component renders nothing
