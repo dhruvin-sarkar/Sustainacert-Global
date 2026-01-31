@@ -46,8 +46,6 @@ const App = () => (
               <Route path="/quality-policy" element={<QualityPolicy />} />
               <Route path="/services" element={<Services />} />
               <Route path="/news-blogs" element={<NewsBlogs />} />
-              <Route path="/news" element={<NewsBlogs />} />
-              <Route path="/blogs" element={<NewsBlogs />} />
               <Route path="/insights/:slug" element={<InsightDetail />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/apply" element={<Apply />} />

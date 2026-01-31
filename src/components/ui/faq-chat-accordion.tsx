@@ -29,7 +29,7 @@ export function FaqAccordion({
   questionClassName,
   answerClassName,
 }: FaqAccordionProps) {
-  const [openItem, setOpenItem] = React.useState<string | null>(null);
+  const [openItem, setOpenItem] = useState<string | null>(null);
 
   return (
     <div className={cn("space-y-3", className)}>
