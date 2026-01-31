@@ -42,10 +42,10 @@ export default function Index() {
 
   const handleExpansionComplete = () => {
     setExpansionComplete(true);
-    // Wait 0.8 seconds after expansion completes, then fade in hero content (faster)
+    // Wait 0.3 seconds after expansion completes, then fade in hero content (smoother transition)
     setTimeout(() => {
       setShowHeroContent(true);
-    }, 800);
+    }, 300);
   };
 
   // Memoize partner slides to prevent recreation
@@ -95,8 +95,8 @@ export default function Index() {
         {!expansionComplete && (
           <motion.div
             className="fixed inset-0 z-50"
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
             <ScrollExpandMedia
               mediaType="video"
@@ -117,9 +117,9 @@ export default function Index() {
       <AnimatePresence>
         {showHeroContent && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
             className="relative z-10"
           >
             <Layout>
