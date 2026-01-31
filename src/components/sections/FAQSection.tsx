@@ -1,10 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { useMemo } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { FaqAccordion } from '@/components/ui/faq-chat-accordion';
 import { sustainacertFAQs } from '@/data/faq-data';
 import { Connect } from '@/components/sections/Connect';
 
 export default function FAQSection() {
+  const shouldReduceMotion = useReducedMotion();
+  const certificationFAQs = useMemo(() => sustainacertFAQs.slice(0, 3), []);
+  const processFAQs = useMemo(() => sustainacertFAQs.slice(3, 6), []);
+
   return (
     <section className="relative bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 py-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -28,10 +32,10 @@ export default function FAQSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {/* Certification Process Image */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+            whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
             className="relative overflow-hidden rounded-2xl shadow-lg"
           >
             <img 
@@ -48,10 +52,10 @@ export default function FAQSection() {
 
           {/* Industry Standards Image */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+            whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.6 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1, duration: 0.6 }}
             className="relative overflow-hidden rounded-2xl shadow-lg"
           >
             <img 
@@ -68,10 +72,10 @@ export default function FAQSection() {
 
           {/* Sustainable Practices Image */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+            whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.6 }}
             className="relative overflow-hidden rounded-2xl shadow-lg"
           >
             <img 
@@ -95,7 +99,7 @@ export default function FAQSection() {
               Certification FAQs
             </h3>
             <FaqAccordion 
-              data={sustainacertFAQs.slice(0, 3)}
+              data={certificationFAQs}
               timestamp=""
               className="p-0"
             />
@@ -107,7 +111,7 @@ export default function FAQSection() {
               Process & Verification
             </h3>
             <FaqAccordion 
-              data={sustainacertFAQs.slice(3, 6)}
+              data={processFAQs}
               timestamp=""
               className="p-0"
             />
