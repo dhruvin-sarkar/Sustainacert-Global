@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { SocialLinks } from '@/components/ui/social-links';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
@@ -6,7 +6,7 @@ import { Particles } from '@/components/ui/highlighter';
 import { socialLinksData } from '@/data/social-links';
 import { teamMembers } from '@/data/team-members';
 
-const handleLinkClick = (e: React.MouseEvent) => {
+const handleLinkClick = (e: MouseEvent) => {
   e.preventDefault();
   const href = e.currentTarget.getAttribute('href');
   if (href) {
