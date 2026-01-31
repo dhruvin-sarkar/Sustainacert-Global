@@ -357,21 +357,21 @@ const ScrollExpandMedia = ({
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
                   initial={{ x: -textTranslateX * 10, opacity: 0 }}
                   animate={{ 
-                    x: mediaFullyExpanded ? -150 : 0,
-                    y: mediaFullyExpanded ? -300 : 0,
-                    scale: mediaFullyExpanded ? 0.6 : 1,
+                    x: mediaFullyExpanded ? -400 : 0,
+                    y: mediaFullyExpanded ? -200 : 0,
+                    scale: mediaFullyExpanded ? 0.8 : 1,
                     opacity: mediaFullyExpanded ? 0 : 1,
                   }}
                   transition={{ 
-                    duration: mediaFullyExpanded ? 0.6 : 0.8,
+                    duration: mediaFullyExpanded ? 0.8 : 0.8,
                     ease: "easeInOut",
-                    delay: mediaFullyExpanded ? 0.8 : 0.1,
+                    delay: mediaFullyExpanded ? 0.3 : 0.1,
                   }}
                   style={{
                     position: mediaFullyExpanded ? 'absolute' : 'static',
-                    top: mediaFullyExpanded ? '50%' : 'auto',
-                    left: mediaFullyExpanded ? '25%' : 'auto',
-                    transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'none',
+                    top: mediaFullyExpanded ? '20%' : 'auto',
+                    left: mediaFullyExpanded ? '10%' : 'auto',
+                    transform: mediaFullyExpanded ? 'none' : 'none',
                   }}
                 >
                   {firstHalf}
@@ -380,21 +380,21 @@ const ScrollExpandMedia = ({
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
                   initial={{ x: textTranslateX * 10, opacity: 0 }}
                   animate={{ 
-                    x: mediaFullyExpanded ? 150 : 0,
-                    y: mediaFullyExpanded ? -250 : 0,
-                    scale: mediaFullyExpanded ? 0.6 : 1,
+                    x: mediaFullyExpanded ? -100 : 0,
+                    y: mediaFullyExpanded ? -150 : 0,
+                    scale: mediaFullyExpanded ? 0.8 : 1,
                     opacity: mediaFullyExpanded ? 0 : 1,
                   }}
                   transition={{ 
-                    duration: mediaFullyExpanded ? 0.6 : 0.8,
+                    duration: mediaFullyExpanded ? 0.8 : 0.8,
                     ease: "easeInOut",
-                    delay: mediaFullyExpanded ? 0.8 : 0.2,
+                    delay: mediaFullyExpanded ? 0.4 : 0.2,
                   }}
                   style={{
                     position: mediaFullyExpanded ? 'absolute' : 'static',
-                    top: mediaFullyExpanded ? '50%' : 'auto',
-                    left: mediaFullyExpanded ? '75%' : 'auto',
-                    transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'none',
+                    top: mediaFullyExpanded ? '35%' : 'auto',
+                    left: mediaFullyExpanded ? '10%' : 'auto',
+                    transform: mediaFullyExpanded ? 'none' : 'none',
                   }}
                 >
                   {secondHalf}
