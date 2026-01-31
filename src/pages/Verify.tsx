@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Shield, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -54,7 +55,7 @@ export default function Verify() {
     }
   }, [showConfetti]);
 
-  const handleVerify = (e: React.FormEvent) => {
+  const handleVerify = (e: FormEvent) => {
     e.preventDefault();
     setStatus('loading');
     setShowConfetti(false);
