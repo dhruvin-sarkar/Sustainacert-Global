@@ -1,19 +1,20 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { Globe as GlobeIcon } from 'lucide-react';
 import WireframeDottedGlobe from '@/components/ui/wireframe-dotted-globe';
 
 export default function GeographicalPresence() {
-  const ref = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
+  const ref = useRef<HTMLElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
     <section ref={ref} className="py-20 bg-secondary/50">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+          animate={shouldReduceMotion ? undefined : isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           className="max-w-5xl mx-auto"
         >
           <div className="text-center mb-12">
