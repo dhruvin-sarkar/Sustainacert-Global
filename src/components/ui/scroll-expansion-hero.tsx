@@ -270,9 +270,15 @@ const ScrollExpandMedia = ({
                         playsInline
                         preload='auto'
                         className='w-full h-full object-cover rounded-xl'
-                        controls={true}
+                        controls={false}
                         disablePictureInPicture
                         disableRemotePlayback
+                        ref={(videoEl: HTMLVideoElement | null) => {
+                          if (videoEl) {
+                            (videoEl as any).style.webkitMediaControls = 'none';
+                            (videoEl as any).controls = false;
+                          }
+                        }}
                       />
 
                       <motion.div
