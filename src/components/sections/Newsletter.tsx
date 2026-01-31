@@ -73,7 +73,7 @@ export default function Newsletter() {
               type="submit"
               disabled={submitted}
               className="bg-mountain-meadow hover:bg-jungle-green text-gable-green font-semibold"
-              confettiOptions={
+              options={
                 shouldReduceMotion
                   ? { particleCount: 0, spread: 0, colors: [], origin: { y: 0.7 } }
                   : {
