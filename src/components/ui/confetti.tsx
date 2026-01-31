@@ -1,5 +1,5 @@
-import type { ReactNode } from "react"
-import React, {
+import type { ReactNode, ComponentPropsWithRef } from "react"
+import {
   createContext,
   forwardRef,
   useCallback,
@@ -21,7 +21,7 @@ type Api = {
   fire: (options?: ConfettiOptions) => void
 }
 
-type Props = React.ComponentPropsWithRef<"canvas"> & {
+type Props = ComponentPropsWithRef<"canvas"> & {
   options?: ConfettiOptions
   globalOptions?: ConfettiGlobalOptions
   manualstart?: boolean
