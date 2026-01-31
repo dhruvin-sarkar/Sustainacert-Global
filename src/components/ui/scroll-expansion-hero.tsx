@@ -348,12 +348,28 @@ const ScrollExpandMedia = ({
                 <motion.h2
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
+                  animate={{
+                    x: [-textTranslateX * 10, 0],
+                  }}
+                  transition={{ 
+                    duration: 0.8, 
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                    delay: 0.1
+                  }}
                 >
                   {firstHalf}
                 </motion.h2>
                 <motion.h2
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
                   style={{ transform: `translateX(${textTranslateX}vw)` }}
+                  animate={{
+                    x: [textTranslateX * 10, 0],
+                  }}
+                  transition={{ 
+                    duration: 0.8, 
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                    delay: 0.2
+                  }}
                 >
                   {secondHalf}
                 </motion.h2>
