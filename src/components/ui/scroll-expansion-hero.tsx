@@ -355,10 +355,7 @@ const ScrollExpandMedia = ({
                 <motion.h2
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
                   animate={{
-                    x: [-textTranslateX * 10, mediaFullyExpanded ? -200 : 0],
-                    y: mediaFullyExpanded ? -200 : 0,
-                    scale: mediaFullyExpanded ? 0.8 : 1,
-                    opacity: mediaFullyExpanded ? 0 : 1,
+                    x: [-textTranslateX * 10, 0],
                   }}
                   transition={{ 
                     duration: 0.8, 
@@ -371,10 +368,7 @@ const ScrollExpandMedia = ({
                 <motion.h2
                   className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
                   animate={{
-                    x: [textTranslateX * 10, mediaFullyExpanded ? 200 : 0],
-                    y: mediaFullyExpanded ? -200 : 0,
-                    scale: mediaFullyExpanded ? 0.8 : 1,
-                    opacity: mediaFullyExpanded ? 0 : 1,
+                    x: [textTranslateX * 10, 0],
                   }}
                   transition={{ 
                     duration: 0.8, 
