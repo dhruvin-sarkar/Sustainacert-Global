@@ -1,4 +1,3 @@
-import React from 'react';
 import { Timeline } from '@/components/ui/timeline';
 import { certificationTimelineData } from '@/data/certification-timeline-data';
 
