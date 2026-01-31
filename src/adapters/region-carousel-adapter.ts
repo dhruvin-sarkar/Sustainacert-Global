@@ -12,6 +12,7 @@ export interface CarouselImageSet {
 }
 
 // Curated image sets per region (placeholder strategy)
+const DEFAULT_REGION_KEY = 'default';
 const REGION_IMAGE_SETS: Record<string, CarouselImageSet> = {
   'middle-east': {
     step1img1: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80', // Dubai skyline
@@ -70,7 +71,8 @@ const REGION_IMAGE_SETS: Record<string, CarouselImageSet> = {
 };
 
 export function getRegionImages(regionId: string): CarouselImageSet {
-  return REGION_IMAGE_SETS[regionId.toLowerCase()] || REGION_IMAGE_SETS['default'];
+  const normalizedRegionId = regionId.toLowerCase();
+  return REGION_IMAGE_SETS[normalizedRegionId] || REGION_IMAGE_SETS[DEFAULT_REGION_KEY];
 }
 
 // Adapt RegionData to carousel step content
