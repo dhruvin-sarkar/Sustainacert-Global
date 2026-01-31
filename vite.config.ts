@@ -10,13 +10,6 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    // Uncomment after installing: npm install -D rollup-plugin-visualizer
-    // visualizer({
-    //   open: true,
-    //   gzipSize: true,
-    //   brotliSize: true,
-    //   filename: 'dist/stats.html',
-    // }),
   ],
   resolve: {
     alias: {
@@ -36,7 +29,7 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    minify: 'esbuild', // Using esbuild (faster, built-in). Change to 'terser' after: npm install -D terser
+    minify: 'esbuild',
     chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
     sourcemap: false,
