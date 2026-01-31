@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface TimelineItem {
   title: string;
   description: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   date?: string;
 }
 
@@ -25,35 +26,48 @@ export function EnhancedTimeline({
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (!animate) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!animate || prefersReducedMotion) {
       setVisibleItems(new Set(items.map((_, i) => i)));
       return;
     }
 
-    const observers = itemRefs.current.map((ref, index) => {
-      if (!ref) return null;
+    setVisibleItems(new Set());
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setVisibleItems((prev) => new Set(prev).add(index));
-              observer.disconnect();
-            }
+    const elementToIndex = new Map<Element, number>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const index = elementToIndex.get(entry.target);
+          if (index === undefined) return;
+
+          setVisibleItems((prev) => {
+            if (prev.has(index)) return prev;
+            const next = new Set(prev);
+            next.add(index);
+            return next;
           });
-        },
-        {
-          threshold: 0.2,
-          rootMargin: '0px 0px -100px 0px',
-        }
-      );
 
+          observer.unobserve(entry.target);
+          elementToIndex.delete(entry.target);
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px',
+      },
+    );
+
+    itemRefs.current.forEach((ref, index) => {
+      if (!ref) return;
+      elementToIndex.set(ref, index);
       observer.observe(ref);
-      return observer;
     });
 
     return () => {
-      observers.forEach((observer) => observer?.disconnect());
+      observer.disconnect();
+      elementToIndex.clear();
     };
   }, [items, animate]);
 
