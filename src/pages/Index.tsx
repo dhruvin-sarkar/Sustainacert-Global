@@ -32,11 +32,15 @@ const companyValues = ['Independent & Impartial', 'Globally Recognized', 'Sustai
 export default function Index() {
   const [expansionComplete, setExpansionComplete] = useState(false);
   const [showHeroContent, setShowHeroContent] = useState(false);
+  const [heroTitle, setHeroTitle] = useState<string>("");
+  const [heroDate, setHeroDate] = useState<string>("");
 
   useEffect(() => {
     // Reset on mount
     setExpansionComplete(false);
     setShowHeroContent(false);
+    setHeroTitle("");
+    setHeroDate("");
     window.scrollTo(0, 0);
   }, []);
 
@@ -46,6 +50,11 @@ export default function Index() {
     setTimeout(() => {
       setShowHeroContent(true);
     }, 300);
+  };
+
+  const handleTextReady = (title: string, date: string) => {
+    setHeroTitle(title);
+    setHeroDate(date);
   };
 
   // Memoize partner slides to prevent recreation
@@ -108,6 +117,7 @@ export default function Index() {
               scrollToExpand="Scroll to Explore Our Services"
               textBlend={false}
               onExpansionComplete={handleExpansionComplete}
+              onTextReady={handleTextReady}
             />
           </motion.div>
         )}
@@ -144,7 +154,7 @@ export default function Index() {
                     >
                       <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8">
                         <Shield size={16} />
-                        Independent Global Certification Body
+                        {heroDate || "Independent Global Certification Body"}
                       </div>
                     </motion.div>
 
@@ -154,8 +164,17 @@ export default function Index() {
                       transition={{ delay: 0.1, duration: 0.3 }}
                       className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
                     >
-                      <span className="block">GLOBAL STANDARDS</span>
-                      <span className="block text-gradient">TRUSTED CERTIFICATION</span>
+                      {heroTitle && (
+                        <>
+                          <span className="block">{heroTitle.split(' ').slice(0, 2).join(' ')}</span>
+                          <span className="block text-gradient">{heroTitle.split(' ').slice(2).join(' ')}</span>
+                        </>
+                      ) || (
+                        <>
+                          <span className="block">GLOBAL STANDARDS</span>
+                          <span className="block text-gradient">TRUSTED CERTIFICATION</span>
+                        </>
+                      )}
                     </motion.h1>
 
                     <motion.p

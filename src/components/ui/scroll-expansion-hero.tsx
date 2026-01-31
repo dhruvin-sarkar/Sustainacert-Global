@@ -19,6 +19,7 @@ interface ScrollExpandMediaProps {
   textBlend?: boolean;
   children?: ReactNode;
   onExpansionComplete?: () => void;
+  onTextReady?: (title: string, date: string) => void;
 }
 
 const ScrollExpandMedia = ({
@@ -32,6 +33,7 @@ const ScrollExpandMedia = ({
   textBlend,
   children,
   onExpansionComplete,
+  onTextReady,
 }: ScrollExpandMediaProps) => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [showContent, setShowContent] = useState<boolean>(false);
@@ -45,7 +47,12 @@ const ScrollExpandMedia = ({
     setScrollProgress(0);
     setShowContent(false);
     setMediaFullyExpanded(false);
-  }, [mediaType]);
+    
+    // Notify parent component when text is ready
+    if (title && date && onTextReady) {
+      onTextReady(title, date);
+    }
+  }, [title, date, onTextReady]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
