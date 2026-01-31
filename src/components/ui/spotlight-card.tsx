@@ -1,4 +1,5 @@
-import React, { ReactNode, useEffect, useMemo, useSyncExternalStore } from 'react';
+import { useEffect, useMemo, useSyncExternalStore } from 'react';
+import type { ReactNode } from 'react';
 import { BRAND_GLOW } from '@/constants/brand-colors';
 import { cn } from '@/lib/utils';
 
