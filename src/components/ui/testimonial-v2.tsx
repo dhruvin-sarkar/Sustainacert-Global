@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Fragment } from 'react';
 import { motion } from "framer-motion";
 import { Sun, Moon } from 'lucide-react';
 
@@ -93,7 +94,7 @@ const TestimonialsColumn = (props: {
         className="flex flex-col gap-6 pb-6 bg-transparent transition-colors duration-300 list-none m-0 p-0"
       >
         {Array.from({ length: 2 }, (_, index) => (
-          <React.Fragment key={`column-${index}`}>
+          <Fragment key={`column-${index}`}>
             {props.testimonials.map(({ text, image, name, role }, i) => (
                 <motion.li
                   key={`${index}-${i}`}
@@ -137,7 +138,7 @@ const TestimonialsColumn = (props: {
                   </blockquote>
                 </motion.li>
               ))}
-            </React.Fragment>
+            </Fragment>
           ))}
       </motion.ul>
     </div>
