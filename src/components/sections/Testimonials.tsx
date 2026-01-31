@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from "framer-motion";
+import { Fragment } from 'react';
+import { motion, useReducedMotion } from "framer-motion";
 
 // --- Types ---
 interface Testimonial {
@@ -76,40 +76,53 @@ const TestimonialsColumn = (props: {
   className?: string;
   testimonials: Testimonial[];
   duration?: number;
+  shouldReduceMotion?: boolean;
 }) => {
   return (
     <div className={props.className}>
       <motion.ul
-        animate={{
-          translateY: "-50%",
-        }}
-        transition={{
-          duration: props.duration || 10,
-          repeat: Infinity,
-          ease: "linear",
-          repeatType: "loop",
-        }}
+        animate={props.shouldReduceMotion ? undefined : { translateY: "-50%" }}
+        transition={
+          props.shouldReduceMotion
+            ? undefined
+            : {
+                duration: props.duration || 10,
+                repeat: Infinity,
+                ease: "linear",
+                repeatType: "loop",
+              }
+        }
         className="flex flex-col gap-6 pb-6 bg-transparent transition-colors duration-300 list-none m-0 p-0"
       >
         {Array.from({ length: 2 }, (_, index) => (
-          <React.Fragment key={`column-${index}`}>
+          <Fragment key={`column-${index}`}>
             {props.testimonials.map(({ text, image, name, role }, i) => (
                 <motion.li
                   key={`${index}-${i}`}
-                  aria-hidden={index === 1 ? "true" : "false"}
+                  aria-hidden={index === 1}
                   tabIndex={index === 1 ? -1 : 0}
-                  whileHover={{
-                    scale: 1.03,
-                    y: -8,
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.05)",
-                    transition: { type: "spring", stiffness: 400, damping: 17 }
-                  }}
-                  whileFocus={{
-                    scale: 1.03,
-                    y: -8,
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 0 1px rgba(0, 0, 0, 0.05)",
-                    transition: { type: "spring", stiffness: 400, damping: 17 }
-                  }}
+                  whileHover={
+                    props.shouldReduceMotion
+                      ? undefined
+                      : {
+                          scale: 1.03,
+                          y: -8,
+                          boxShadow:
+                            "0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+                          transition: { type: "spring", stiffness: 400, damping: 17 },
+                        }
+                  }
+                  whileFocus={
+                    props.shouldReduceMotion
+                      ? undefined
+                      : {
+                          scale: 1.03,
+                          y: -8,
+                          boxShadow:
+                            "0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+                          transition: { type: "spring", stiffness: 400, damping: 17 },
+                        }
+                  }
                   className="p-10 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-lg shadow-black/5 max-w-xs w-full bg-white dark:bg-neutral-900 transition-all duration-300 cursor-default select-none group focus:outline-none focus:ring-2 focus:ring-primary/30"
                 >
                   <blockquote className="m-0 p-0">
@@ -122,6 +135,8 @@ const TestimonialsColumn = (props: {
                         height={40}
                         src={image}
                         alt={`Avatar of ${name}`}
+                        loading="lazy"
+                        decoding="async"
                         className="h-10 w-10 rounded-full object-cover ring-2 ring-neutral-100 dark:ring-neutral-800 group-hover:ring-primary/30 transition-all duration-300 ease-in-out"
                       />
                       <div className="flex flex-col">
@@ -136,7 +151,7 @@ const TestimonialsColumn = (props: {
                   </blockquote>
                 </motion.li>
               ))}
-            </React.Fragment>
+            </Fragment>
           ))}
       </motion.ul>
     </div>
@@ -144,17 +159,19 @@ const TestimonialsColumn = (props: {
 };
 
 export default function Testimonials() {
+  const shouldReduceMotion = useReducedMotion() ?? false;
+
   return (
     <section
       aria-labelledby="testimonials-heading"
       className="bg-transparent py-24 relative overflow-hidden"
     >
       <motion.div
-        initial={{ opacity: 0, y: 50, rotate: -2 }}
-        whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 50, rotate: -2 }}
+        whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0, rotate: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{
-          duration: 1.2,
+          duration: shouldReduceMotion ? 0 : 1.2,
           ease: [0.16, 1, 0.3, 1],
           opacity: { duration: 0.8 }
         }}
@@ -179,9 +196,9 @@ export default function Testimonials() {
           className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] max-h-[740px] overflow-hidden"
           aria-label="Scrolling Testimonials"
         >
-          <TestimonialsColumn testimonials={firstColumn} duration={15} />
-          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} />
-          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} />
+          <TestimonialsColumn testimonials={firstColumn} duration={15} shouldReduceMotion={shouldReduceMotion} />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} shouldReduceMotion={shouldReduceMotion} />
+          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} shouldReduceMotion={shouldReduceMotion} />
         </div>
       </motion.div>
     </section>
