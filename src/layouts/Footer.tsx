@@ -94,8 +94,7 @@ export default function Footer() {
               </h3>
               <ul className="space-y-3">
                 {[
-                  { name: 'News', path: '/news-blogs' },
-                  { name: 'Blogs', path: '/news-blogs' },
+                  { name: 'News & Blogs', path: '/news-blogs' },
                   { name: 'Quality Policy', path: '/quality-policy' },
                   { name: 'Apply for Certification', path: '/apply' },
                   { name: 'Verify Certification', path: '/verify' }

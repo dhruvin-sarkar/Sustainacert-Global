@@ -191,12 +191,12 @@ const ScrollExpandMedia = ({
   return (
     <div
       ref={sectionRef}
-      className='transition-colors duration-700 ease-in-out overflow-x-hidden'
+      className='relative transition-colors duration-700 ease-in-out overflow-x-hidden'
     >
       <section className='relative flex flex-col items-center justify-start min-h-[100dvh]'>
         <div className='relative w-full flex flex-col items-center min-h-[100dvh]'>
           <motion.div
-            className='absolute inset-0 z-0 h-full bg-background'
+            className='absolute inset-0 z-0 h-full'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 - scrollProgress }}
             transition={{ duration: 0.1 }}
