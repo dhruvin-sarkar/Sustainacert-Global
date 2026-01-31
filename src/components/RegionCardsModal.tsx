@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LocationMap } from '@/components/ui/expand-map';
@@ -16,8 +16,8 @@ interface RegionCardsModalProps {
 
 export default function RegionCardsModal({ region, onClose }: RegionCardsModalProps) {
   // Adapt region data to carousel format
-  const carouselSteps = adaptRegionToCarouselSteps(region);
-  const carouselImages = getRegionImages(region.id);
+  const carouselSteps = useMemo(() => adaptRegionToCarouselSteps(region), [region]);
+  const carouselImages = useMemo(() => getRegionImages(region.id), [region.id]);
 
   return (
     <AnimatePresence>
