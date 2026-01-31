@@ -216,15 +216,29 @@ const ScrollExpandMedia = ({
           <div className='container mx-auto flex flex-col items-center justify-start relative z-10'>
             <div className='flex flex-col items-center justify-center w-full h-[100dvh] relative'>
               <motion.div
-                className='absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl'
-                animate={{ opacity: mediaFullyExpanded ? 0 : 1 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
+                className='absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+                animate={{ 
+                  opacity: mediaFullyExpanded ? 0 : 1,
+                  width: mediaFullyExpanded ? '100vw' : `${mediaWidth}px`,
+                  height: mediaFullyExpanded ? '100vh' : `${mediaHeight}px`,
+                  top: mediaFullyExpanded ? '50%' : '50%',
+                  left: mediaFullyExpanded ? '50%' : '50%',
+                  transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'translate(-50%, -50%)',
+                  borderRadius: mediaFullyExpanded ? '0px' : '0.75rem'
+                }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: 0.5,
+                  width: { duration: 0.6, ease: "easeInOut" },
+                  height: { duration: 0.6, ease: "easeInOut" },
+                  borderRadius: { duration: 0.4, ease: "easeInOut" }
+                }}
                 style={{
-                  width: `${mediaWidth}px`,
-                  height: `${mediaHeight}px`,
-                  maxWidth: '95vw',
-                  maxHeight: '85vh',
-                  boxShadow: '0px 0px 50px rgba(0, 0, 0, 0.3)',
+                  width: mediaFullyExpanded ? '100vw' : `${mediaWidth}px`,
+                  height: mediaFullyExpanded ? '100vh' : `${mediaHeight}px`,
+                  maxWidth: mediaFullyExpanded ? '100vw' : '95vw',
+                  maxHeight: mediaFullyExpanded ? '100vh' : '85vh',
+                  boxShadow: mediaFullyExpanded ? 'none' : '0px 0px 50px rgba(0, 0, 0, 0.3)',
                 }}
               >
                 {mediaType === 'video' ? (
