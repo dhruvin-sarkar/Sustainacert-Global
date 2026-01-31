@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import type { ComponentPropsWithoutRef } from "react";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 // Animation presets for different effects
@@ -26,40 +27,47 @@ const ANIMATION_PRESETS = {
 } as const;
 
 // Custom hook for auto-cycling through steps
-function useNumberCycler(totalSteps: number, interval = 5000) {
+function useNumberCycler(totalSteps: number, interval = 5000, enabled = true) {
   const [currentNumber, setCurrentNumber] = useState(0);
-  
+
   useEffect(() => {
-    const timerId = setTimeout(() => {
+    if (!enabled) return;
+    const timerId = window.setTimeout(() => {
       setCurrentNumber((prev) => (prev + 1) % totalSteps);
     }, interval);
-    
-    return () => clearTimeout(timerId);
-  }, [currentNumber, totalSteps, interval]);
-  
-  const setStep = useCallback((stepIndex: number) => {
-    setCurrentNumber(stepIndex % totalSteps);
-  }, [totalSteps]);
-  
+
+    return () => window.clearTimeout(timerId);
+  }, [currentNumber, totalSteps, interval, enabled]);
+
+  const setStep = useCallback(
+    (stepIndex: number) => {
+      setCurrentNumber(stepIndex % totalSteps);
+    },
+    [totalSteps],
+  );
+
   return { currentNumber, setStep };
 }
 
 // Image component with lazy loading and error handling
-function StepImage({ 
-  src, 
-  alt, 
-  className, 
-  animationPreset = "fadeInScale",
-  delay = 0,
-  ...props 
-}: {
+type StepImageProps = {
   src: string;
   alt: string;
   className?: string;
   animationPreset?: keyof typeof ANIMATION_PRESETS;
   delay?: number;
-  [key: string]: React.HTMLAttributes<HTMLDivElement>;
-}) {
+  shouldReduceMotion?: boolean;
+} & Omit<ComponentPropsWithoutRef<typeof motion.div>, "ref">;
+
+function StepImage({
+  src,
+  alt,
+  className,
+  animationPreset = "fadeInScale",
+  delay = 0,
+  shouldReduceMotion,
+  ...props
+}: StepImageProps) {
   const ref = useRef<HTMLImageElement>(null);
   const isInView = useInView(ref, { once: true, margin: "50px" });
   const [hasError, setHasError] = useState(false);
@@ -74,10 +82,9 @@ function StepImage({
   return (
     <motion.div
       ref={ref}
-      className={cn("relative overflow-hidden", className)}
-      {...animation}
-      transition={{ ...animation.transition, delay }}
-      style={{ position: "relative", userSelect: "none" }}
+      className={cn("relative overflow-hidden select-none", className)}
+      {...(shouldReduceMotion ? {} : animation)}
+      transition={shouldReduceMotion ? undefined : { ...animation.transition, delay }}
       {...props}
     >
       {isInView && (
@@ -85,21 +92,13 @@ function StepImage({
           src={hasError ? placeholderImage(alt) : src}
           alt={alt}
           className={cn(
-            "w-full h-full object-cover transition-opacity duration-300",
+            "absolute inset-0 w-full h-full max-w-none object-cover transition-opacity duration-300",
             isLoaded ? "opacity-100" : "opacity-0"
           )}
           loading="lazy"
           decoding="async"
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
-          style={{ 
-            position: "absolute", 
-            top: 0, 
-            left: 0, 
-            width: "100%", 
-            height: "100%",
-            maxWidth: "unset"
-          } as React.CSSProperties}
         />
       )}
       {!isLoaded && isInView && !hasError && (
@@ -163,6 +162,7 @@ export function FeatureCarousel({
   className,
   ...props
 }: FeatureCarouselProps) {
+  const shouldReduceMotion = useReducedMotion() ?? false;
   // Default steps if none provided
   const defaultSteps: readonly Step[] = [
     {
@@ -192,7 +192,7 @@ export function FeatureCarousel({
   ];
   
   const steps = customSteps || defaultSteps;
-  const { currentNumber: step, setStep } = useNumberCycler(steps.length);
+  const { currentNumber: step, setStep } = useNumberCycler(steps.length, 5000, !shouldReduceMotion);
 
   return (
     <div
@@ -207,7 +207,7 @@ export function FeatureCarousel({
         <motion.div
           key={step}
           className="p-8"
-          {...ANIMATION_PRESETS.fadeInScale}
+          {...(shouldReduceMotion ? {} : ANIMATION_PRESETS.fadeInScale)}
         >
           <div className="mb-6">
             <span className="text-emerald-600 dark:text-emerald-500 text-sm font-semibold uppercase tracking-wider">
@@ -231,6 +231,7 @@ export function FeatureCarousel({
                   alt={`${image.alt} - Step 1 Image 1`}
                   className={step1img1Class}
                   animationPreset="slideInLeft"
+                  shouldReduceMotion={shouldReduceMotion}
                 />
                 <StepImage
                   src={image.step1img2}
@@ -238,6 +239,7 @@ export function FeatureCarousel({
                   className={step1img2Class}
                   animationPreset="slideInRight"
                   delay={0.1}
+                  shouldReduceMotion={shouldReduceMotion}
                 />
               </div>
             )}
@@ -249,6 +251,7 @@ export function FeatureCarousel({
                   alt={`${image.alt} - Step 2 Image 1`}
                   className={step2img1Class}
                   animationPreset="fadeInScale"
+                  shouldReduceMotion={shouldReduceMotion}
                 />
                 <StepImage
                   src={image.step2img2}
@@ -256,6 +259,7 @@ export function FeatureCarousel({
                   className={step2img2Class}
                   animationPreset="fadeInScale"
                   delay={0.2}
+                  shouldReduceMotion={shouldReduceMotion}
                 />
               </div>
             )}
@@ -266,6 +270,7 @@ export function FeatureCarousel({
                 alt={`${image.alt} - Step 3 Image`}
                 className={step3imgClass}
                 animationPreset="fadeInScale"
+                shouldReduceMotion={shouldReduceMotion}
               />
             )}
             
@@ -275,6 +280,7 @@ export function FeatureCarousel({
                 alt={`${image.alt} - Step 4 Image`}
                 className={step4imgClass}
                 animationPreset="fadeInScale"
+                shouldReduceMotion={shouldReduceMotion}
               />
             )}
           </div>
