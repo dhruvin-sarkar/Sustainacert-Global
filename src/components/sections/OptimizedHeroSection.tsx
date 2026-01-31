@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
@@ -23,49 +23,103 @@ export function OptimizedHeroSection({
   className,
 }: OptimizedHeroSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const transitionTimeoutRef = useRef<number | null>(null);
 
-  // Preload all background images
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+
   useEffect(() => {
-    backgrounds.forEach((src, index) => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = () => setShouldReduceMotion(mediaQuery.matches);
+    onChange();
+    mediaQuery.addEventListener('change', onChange);
+    return () => mediaQuery.removeEventListener('change', onChange);
+  }, []);
+
+  const safeBackgrounds = useMemo(
+    () => backgrounds.filter((src) => Boolean(src)),
+    [backgrounds],
+  );
+
+  const shouldRotate = safeBackgrounds.length > 1 && !shouldReduceMotion;
+
+  useEffect(() => {
+    setCurrentIndex(0);
+    setLoadedImages(new Set());
+  }, [safeBackgrounds]);
+
+  useEffect(() => {
+    if (safeBackgrounds.length === 0) return;
+
+    const indicesToPreload = new Set<number>();
+    indicesToPreload.add(currentIndex);
+    indicesToPreload.add((currentIndex + 1) % safeBackgrounds.length);
+
+    indicesToPreload.forEach((index) => {
+      const src = safeBackgrounds[index];
+      if (!src) return;
+
       const img = new Image();
+      img.decoding = 'async';
       img.src = src;
       img.onload = () => {
-        setLoadedImages((prev) => new Set(prev).add(index));
+        setLoadedImages((prev) => {
+          if (prev.has(index)) return prev;
+          const next = new Set(prev);
+          next.add(index);
+          return next;
+        });
       };
     });
-  }, [backgrounds]);
+  }, [safeBackgrounds, currentIndex]);
+
+  useEffect(() => {
+    return () => {
+      if (transitionTimeoutRef.current !== null) {
+        window.clearTimeout(transitionTimeoutRef.current);
+        transitionTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   // Auto-rotate backgrounds
   useEffect(() => {
-    if (backgrounds.length <= 1) return;
+    if (!shouldRotate) return;
 
     const timer = setInterval(() => {
       setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % backgrounds.length);
+      transitionTimeoutRef.current = window.setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % safeBackgrounds.length);
         setIsTransitioning(false);
       }, 300);
-    }, interval);
+    }, Math.max(1000, interval));
 
     return () => clearInterval(timer);
-  }, [backgrounds.length, interval]);
+  }, [shouldRotate, safeBackgrounds.length, interval]);
+
+  const handleDotClick = useCallback(
+    (index: number) => {
+      setCurrentIndex(index);
+    },
+    [],
+  );
 
   return (
     <section className={cn('relative min-h-screen overflow-hidden', className)}>
       {/* Background Images */}
       <div className="absolute inset-0">
-        {backgrounds.map((bg, index) => (
+        {safeBackgrounds.map((bg, index) => (
           <div
-            key={bg}
+            key={index}
             className={cn(
-              'absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000',
+              'absolute inset-0 bg-cover bg-center bg-no-repeat',
+              shouldReduceMotion ? 'transition-none' : 'transition-opacity duration-1000',
               index === currentIndex && loadedImages.has(index)
                 ? 'opacity-100'
                 : 'opacity-0'
             )}
-            style={{ backgroundImage: `url(${bg})` }}
+            style={{ ['--hero-bg' as string]: `url(${bg})` } as React.CSSProperties}
           />
         ))}
         {/* Overlay */}
@@ -76,8 +130,13 @@ export function OptimizedHeroSection({
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
         <div
           className={cn(
-            'text-center text-white transition-all duration-500',
-            isTransitioning ? 'translate-y-2 opacity-80' : 'translate-y-0 opacity-100'
+            'text-center text-white',
+            shouldReduceMotion ? '' : 'transition-all duration-500',
+            shouldReduceMotion
+              ? 'opacity-100'
+              : isTransitioning
+                ? 'translate-y-2 opacity-80'
+                : 'translate-y-0 opacity-100'
           )}
         >
           <h1 className="mb-4 text-4xl font-bold md:text-6xl lg:text-7xl">
@@ -101,12 +160,12 @@ export function OptimizedHeroSection({
       </div>
 
       {/* Progress Indicators */}
-      {backgrounds.length > 1 && (
+      {safeBackgrounds.length > 1 && (
         <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2">
-          {backgrounds.map((_, index) => (
+          {safeBackgrounds.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => handleDotClick(index)}
               className={cn(
                 'h-2 rounded-full transition-all duration-300',
                 index === currentIndex
