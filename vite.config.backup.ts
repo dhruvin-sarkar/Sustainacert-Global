@@ -26,9 +26,17 @@ export default defineConfig({
     },
   },
   build: {
+    target: 'esnext',
+    minify: 'esbuild',
     chunkSizeWarningLimit: 1000, // Increase from default 500KB to 1000KB
+    cssCodeSplit: true,
+    sourcemap: false,
+    assetsInlineLimit: 4096,
     rollupOptions: {
       output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
           // Split vendor libraries
           vendor: ['react', 'react-dom', 'react-router-dom'],
