@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import type { FC } from "react";
 import {
   motion,
   useTransform,
@@ -22,7 +23,7 @@ interface AnimatedTooltipProps {
   className?: string;
 }
 
-export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
+export const AnimatedTooltip: FC<AnimatedTooltipProps> = ({
   items,
   className,
 }) => {
