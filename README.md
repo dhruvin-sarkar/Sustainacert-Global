@@ -1,5 +1,4 @@
-
-SUSTAINACERT-GLOBAL
+# SUSTAINACERT-GLOBAL
 
 > **Global Standards. Trusted Certification.**
 
@@ -18,7 +17,7 @@ A professional certification website built with React 18, TypeScript, and Tailwi
 
 ## 📁 Project Structure
 
-```
+```text
 src/
 ├── components/          # React components
 │   ├── sections/       # Page sections (Hero, Services, etc.)
@@ -95,10 +94,8 @@ This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENS
 
 ## Support
 
-For support, email dhruvinsarkar@outlook.com or create an issue in the repository.
+For support, email [dhruvinsarkar@outlook.com](mailto:dhruvinsarkar@outlook.com) or create an issue in the repository.
 
 ---
 
-**Built with ❤️ 
-- Sincerely Dhruvin Sarkar
-=======
+### Built with ❤️ by Dhruvin Sarkar
