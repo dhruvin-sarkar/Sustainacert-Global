@@ -260,7 +260,7 @@ const ScrollExpandMedia = ({
                       />
                     </div>
                   ) : (
-                    <div className='relative w-full h-full pointer-events-none z-20'>
+                    <div className='relative w-full h-full z-20'>
                       <video
                         src={mediaSrc}
                         poster={posterSrc}
@@ -270,14 +270,10 @@ const ScrollExpandMedia = ({
                         playsInline
                         preload='auto'
                         className='w-full h-full object-cover rounded-xl'
-                        controls={false}
+                        controls={true}
                         disablePictureInPicture
                         disableRemotePlayback
                       />
-                      <div
-                        className='absolute inset-0 z-10'
-                        style={{ pointerEvents: 'none' }}
-                      ></div>
 
                       <motion.div
                         className='absolute inset-0 bg-black/30 rounded-xl'
