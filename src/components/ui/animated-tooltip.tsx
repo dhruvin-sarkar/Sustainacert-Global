@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   motion,
   useTransform,
   AnimatePresence,
   useMotionValue,
   useSpring,
+  useReducedMotion,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +27,7 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
   className,
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const springConfig = { stiffness: 100, damping: 5 };
   const x = useMotionValue(0);
   
@@ -40,6 +42,7 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
   );
   
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (shouldReduceMotion) return;
     const target = event.currentTarget;
     const halfWidth = target.offsetWidth / 2;
     x.set(event.nativeEvent.offsetX - halfWidth);
@@ -57,21 +60,25 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
           <AnimatePresence mode="popLayout">
             {hoveredIndex === item.id && (
               <motion.div
-                initial={{ opacity: 0, y: 15, scale: 0.8 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: {
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 10,
-                  },
-                }}
-                exit={{ opacity: 0, y: 15, scale: 0.8 }}
+                initial={shouldReduceMotion ? undefined : { opacity: 0, y: 15, scale: 0.8 }}
+                animate={
+                  shouldReduceMotion
+                    ? { opacity: 1, y: 0, scale: 1 }
+                    : {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        transition: {
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 10,
+                        },
+                      }
+                }
+                exit={shouldReduceMotion ? undefined : { opacity: 0, y: 15, scale: 0.8 }}
                 style={{
-                  translateX: translateX,
-                  rotate: rotate,
+                  translateX: shouldReduceMotion ? 0 : translateX,
+                  rotate: shouldReduceMotion ? 0 : rotate,
                   whiteSpace: "nowrap",
                 }}
                 className="absolute -top-20 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center rounded-xl bg-slate-900 border-2 border-emerald-400/40 z-50 shadow-2xl px-5 py-3"
@@ -91,6 +98,8 @@ export const AnimatedTooltip: React.FC<AnimatedTooltipProps> = ({
             onMouseMove={handleMouseMove}
             src={item.image}
             alt={item.name}
+            loading="lazy"
+            decoding="async"
             className="object-cover object-top rounded-full h-12 w-12 border-2 border-emerald-900/50 group-hover:border-emerald-400 group-hover:scale-125 group-hover:z-30 relative transition-all duration-300 cursor-pointer shadow-lg"
           />
         </div>
