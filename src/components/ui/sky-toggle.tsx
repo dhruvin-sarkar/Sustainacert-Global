@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 interface SkyToggleProps {
@@ -6,8 +6,8 @@ interface SkyToggleProps {
   onChange?: (checked: boolean) => void;
 }
 
-const SkyToggle: React.FC<SkyToggleProps> = ({ checked = false, onChange }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const SkyToggle = ({ checked = false, onChange }: SkyToggleProps) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.checked);
   };
 
