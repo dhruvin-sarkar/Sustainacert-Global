@@ -1,6 +1,7 @@
 "use client";
 
-import * as React from "react";
+import { useState, useEffect } from "react";
+import type { HTMLAttributes } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { SocialIcon } from "./social-icons";
@@ -10,21 +11,21 @@ export interface Social {
   url: string;
 }
 
-interface SocialLinksProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SocialLinksProps extends HTMLAttributes<HTMLDivElement> {
   socials: Social[];
 }
 
 export function SocialLinks({ socials, className, ...props }: SocialLinksProps) {
-  const [hoveredSocial, setHoveredSocial] = React.useState<string | null>(null);
-  const [rotation, setRotation] = React.useState<number>(0);
-  const [clicked, setClicked] = React.useState<boolean>(false);
+  const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
+  const [rotation, setRotation] = useState<number>(0);
+  const [clicked, setClicked] = useState<boolean>(false);
 
   const animation = {
     scale: clicked ? [1, 1.3, 1] : 1,
     transition: { duration: 0.3 },
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleClick = () => {
       setClicked(true);
       setTimeout(() => {
