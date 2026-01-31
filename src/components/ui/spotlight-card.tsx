@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useSyncExternalStore } from 'react';
-import type { ReactNode } from 'react';
+import { useEffect, useMemo, useSyncExternalStore, forwardRef } from 'react';
+import type { ReactNode, HTMLAttributes } from 'react';
 import { BRAND_GLOW } from '@/constants/brand-colors';
 import { cn } from '@/lib/utils';
 
@@ -191,12 +191,12 @@ const ensureStyles = () => {
   document.head.appendChild(style);
 };
 
-export interface GlowCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface GlowCardProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   glowColor?: GlowColor;
 }
 
-export const GlowCard = React.forwardRef<HTMLDivElement, GlowCardProps>(
+export const GlowCard = forwardRef<HTMLDivElement, GlowCardProps>(
   ({ children, className, glowColor = DEFAULT_GLOW_COLOR, style, ...props }, ref) => {
     const snapshot = useSyncExternalStore(subscribePointer, getServerSnapshot, getServerSnapshot);
 
