@@ -1,4 +1,5 @@
-import * as React from "react";
+import { createContext, useContext, useEffect, useState, useCallback, useMemo, forwardRef } from "react";
+import type { ComponentProps, ReactNode, CSSProperties } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import { PanelLeft } from "lucide-react";
@@ -29,10 +30,10 @@ type SidebarContext = {
   toggleSidebar: () => void;
 };
 
-const SidebarContext = React.createContext<SidebarContext | null>(null);
+const SidebarContext = createContext<SidebarContext | null>(null);
 
 function useSidebar() {
-  const context = React.useContext(SidebarContext);
+  const context = useContext(SidebarContext);
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider.");
   }
@@ -40,22 +41,22 @@ function useSidebar() {
   return context;
 }
 
-const SidebarProvider = React.forwardRef<
+const SidebarProvider = forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> & {
+  ComponentProps<"div"> & {
     defaultOpen?: boolean;
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
   }
 >(({ defaultOpen = true, open: openProp, onOpenChange: setOpenProp, className, style, children, ...props }, ref) => {
   const isMobile = useIsMobile();
-  const [openMobile, setOpenMobile] = React.useState(false);
+  const [openMobile, setOpenMobile] = useState(false);
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
-  const [_open, _setOpen] = React.useState(defaultOpen);
+  const [_open, _setOpen] = useState(defaultOpen);
   const open = openProp ?? _open;
-  const setOpen = React.useCallback(
+  const setOpen = useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
       const openState = typeof value === "function" ? value(open) : value;
       if (setOpenProp) {
