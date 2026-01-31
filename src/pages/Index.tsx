@@ -100,7 +100,7 @@ export default function Index() {
           >
             <ScrollExpandMedia
               mediaType="video"
-              mediaSrc="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+              mediaSrc="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1"
               posterSrc="https://images.pexels.com/videos/5752729/space-earth-universe-cosmos-5752729.jpeg"
               bgImageSrc="/landscape-shot-green-hills-val-d-orcia-tuscany-italy-gloomy-sky.jpg.jpeg"
               title="GLOBAL STANDARDS TRUSTED CERTIFICATION"
