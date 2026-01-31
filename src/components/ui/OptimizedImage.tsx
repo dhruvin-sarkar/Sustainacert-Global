@@ -25,7 +25,12 @@ export function OptimizedImage({
   const imgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (priority) return;
+    setIsLoaded(false);
+    setIsInView(priority);
+  }, [src, priority]);
+
+  useEffect(() => {
+    if (priority || isInView) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -46,7 +51,7 @@ export function OptimizedImage({
     }
 
     return () => observer.disconnect();
-  }, [priority]);
+  }, [priority, isInView]);
 
   const handleLoad = () => {
     setIsLoaded(true);
