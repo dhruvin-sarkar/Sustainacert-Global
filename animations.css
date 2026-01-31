@@ -240,6 +240,19 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+
+    .scroll-reveal,
+    .scroll-reveal.revealed {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .hover-lift:hover,
+    .hover-scale:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }
 
 /* ============================================
