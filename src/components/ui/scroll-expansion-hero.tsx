@@ -197,8 +197,8 @@ const ScrollExpandMedia = ({
         <div className='relative w-full flex flex-col items-center min-h-[100dvh]'>
           <motion.div
             className='absolute inset-0 z-0 h-full'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 - scrollProgress }}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.1 }}
           >
             <img
