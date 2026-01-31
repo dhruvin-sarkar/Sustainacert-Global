@@ -354,7 +354,7 @@ const ScrollExpandMedia = ({
                 }`}
               >
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none absolute'
+                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
                   initial={{ x: -textTranslateX * 10, opacity: 0 }}
                   animate={{ 
                     x: mediaFullyExpanded ? -150 : 0,
@@ -368,15 +368,16 @@ const ScrollExpandMedia = ({
                     delay: mediaFullyExpanded ? 0.8 : 0.1,
                   }}
                   style={{
+                    position: mediaFullyExpanded ? 'absolute' : 'static',
                     top: mediaFullyExpanded ? '50%' : 'auto',
-                    left: mediaFullyExpanded ? '25%' : '50%',
-                    transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'translate(-50%, -50%)',
+                    left: mediaFullyExpanded ? '25%' : 'auto',
+                    transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'none',
                   }}
                 >
                   {firstHalf}
                 </motion.h2>
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none absolute'
+                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
                   initial={{ x: textTranslateX * 10, opacity: 0 }}
                   animate={{ 
                     x: mediaFullyExpanded ? 150 : 0,
@@ -390,9 +391,10 @@ const ScrollExpandMedia = ({
                     delay: mediaFullyExpanded ? 0.8 : 0.2,
                   }}
                   style={{
+                    position: mediaFullyExpanded ? 'absolute' : 'static',
                     top: mediaFullyExpanded ? '50%' : 'auto',
-                    left: mediaFullyExpanded ? '75%' : '50%',
-                    transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'translate(-50%, -50%)',
+                    left: mediaFullyExpanded ? '75%' : 'auto',
+                    transform: mediaFullyExpanded ? 'translate(-50%, -50%)' : 'none',
                   }}
                 >
                   {secondHalf}
