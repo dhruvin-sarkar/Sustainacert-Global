@@ -2,6 +2,8 @@
   "name": "Sustainacert - Global Standards. Trusted Certification",
   "short_name": "Sustainacert",
   "description": "Global sustainability certification, inspection, and verification body",
+  "lang": "en",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
