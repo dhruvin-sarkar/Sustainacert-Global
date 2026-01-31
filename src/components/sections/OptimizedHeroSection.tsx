@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
@@ -119,7 +120,7 @@ export function OptimizedHeroSection({
                 ? 'opacity-100'
                 : 'opacity-0'
             )}
-            style={{ ['--hero-bg' as string]: `url(${bg})` } as React.CSSProperties}
+            style={{ backgroundImage: `url(${bg})` } as CSSProperties}
           />
         ))}
         {/* Overlay */}
