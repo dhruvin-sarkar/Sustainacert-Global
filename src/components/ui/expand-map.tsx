@@ -1,8 +1,7 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useRef } from "react"
+import type { ReactNode } from "react"
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion"
 
 interface LocationMapProps {
