@@ -198,8 +198,8 @@ const ScrollExpandMedia = ({
           <motion.div
             className='absolute inset-0 z-0 h-full'
             initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.1 }}
+            animate={{ opacity: 1 - scrollProgress }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             <img
               src={bgImageSrc}
