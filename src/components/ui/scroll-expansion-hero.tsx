@@ -50,6 +50,7 @@ const ScrollExpandMedia = ({
     
     // Notify parent component when text is ready
     if (title && date && onTextReady) {
+      console.log('Calling onTextReady with:', title, date); // Debug log
       onTextReady(title, date);
     }
   }, [title, date, onTextReady]);

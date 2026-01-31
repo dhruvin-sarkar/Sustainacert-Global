@@ -53,6 +53,7 @@ export default function Index() {
   };
 
   const handleTextReady = (title: string, date: string) => {
+    console.log('Text ready:', title, date); // Debug log
     setHeroTitle(title);
     setHeroDate(date);
   };
