@@ -1,7 +1,5 @@
-"use client";
-
-import * as React from "react";
-import Link from "next/link";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useAnimate } from "framer-motion";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -10,7 +8,10 @@ import { HighlighterItem, HighlightGroup, Particles } from "@/components/ui/high
 export function Connect() {
   const [scope, animate] = useAnimate();
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
     animate(
       [
         ["#pointer", { left: 200, top: 60 }, { duration: 0 }],
@@ -127,11 +128,12 @@ export function Connect() {
                       Feel free to reach out to us!
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      <a href="/contact-us">
+                      <Link to="/contact-us">
                         <Button>Contact Support</Button>
-                      </a>
+                      </Link>
                       <a
                         href="mailto:info@sustainacert.com"
+                        aria-label="Email Sustainacert support"
                         className={cn(
                           buttonVariants({
                             variant: "outline",
@@ -147,6 +149,7 @@ export function Connect() {
                       </a>
                       <a
                         href="https://wa.me/971501234567"
+                        aria-label="Chat with Sustainacert on WhatsApp"
                         className={cn(
                           buttonVariants({
                             variant: "outline",
