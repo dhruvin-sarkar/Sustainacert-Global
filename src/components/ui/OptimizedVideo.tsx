@@ -30,18 +30,28 @@ export function OptimizedVideo({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsLoaded(false);
+    setIsInView(false);
+  }, [src, poster]);
+
+  useEffect(() => {
+    if (isInView) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shouldAutoplay = autoplay && !prefersReducedMotion;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsInView(true);
-            if (autoplay && videoRef.current) {
+            if (shouldAutoplay && videoRef.current) {
               videoRef.current.play().catch(() => {
                 // Autoplay failed, user interaction required
               });
             }
           } else {
-            if (autoplay && videoRef.current) {
+            if (shouldAutoplay && videoRef.current) {
               videoRef.current.pause();
             }
           }
@@ -58,7 +68,7 @@ export function OptimizedVideo({
     }
 
     return () => observer.disconnect();
-  }, [autoplay]);
+  }, [autoplay, isInView]);
 
   const handleLoadedData = () => {
     setIsLoaded(true);
@@ -76,6 +86,8 @@ export function OptimizedVideo({
           src={poster}
           alt="Video poster"
           className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
         />
       )}
 
