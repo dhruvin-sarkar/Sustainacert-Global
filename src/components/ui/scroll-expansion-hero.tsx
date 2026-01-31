@@ -260,7 +260,7 @@ const ScrollExpandMedia = ({
                       />
                     </div>
                   ) : (
-                    <div className='relative w-full h-full pointer-events-none'>
+                    <div className='relative w-full h-full pointer-events-none z-20'>
                       <video
                         src={mediaSrc}
                         poster={posterSrc}
