@@ -1,21 +1,28 @@
 import { Link } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { useMemo, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { insights } from '@/data/insights';
 
 export default function LatestInsights() {
-  const ref = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
+  const ref = useRef<HTMLElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const latestInsights = insights.slice(0, 5);
+  const latestInsights = useMemo(() => insights.slice(0, 5), []);
 
   return (
     <section ref={ref} className="py-20 bg-secondary/30">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={
+            shouldReduceMotion
+              ? undefined
+              : isInView
+                ? { opacity: 1, y: 0 }
+                : { opacity: 0, y: 20 }
+          }
+          transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
           className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12"
         >
           <div>
@@ -36,9 +43,15 @@ export default function LatestInsights() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Featured Article */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+            animate={
+              shouldReduceMotion
+                ? undefined
+                : isInView
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: 30 }
+            }
+            transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
             className="md:col-span-2 lg:col-span-1 lg:row-span-2"
           >
             <Link
@@ -51,6 +64,8 @@ export default function LatestInsights() {
                     src={latestInsights[0].coverImage}
                     alt={latestInsights[0].title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="p-6">
@@ -77,9 +92,19 @@ export default function LatestInsights() {
           {latestInsights.slice(1, 5).map((insight, index) => (
             <motion.div
               key={insight.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: (index + 1) * 0.1, duration: 0.5 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : isInView
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 30 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { delay: (index + 1) * 0.1, duration: 0.5 }
+              }
             >
               <Link
                 to={`/insights/${insight.slug}`}
@@ -91,6 +116,8 @@ export default function LatestInsights() {
                       src={insight.coverImage}
                       alt={insight.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <div className="p-4">
