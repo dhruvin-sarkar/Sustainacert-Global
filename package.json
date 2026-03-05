@@ -47,6 +47,7 @@
     "cmdk": "^1.1.1",
     "d3": "^7.9.0",
     "date-fns": "^3.6.0",
+    "dotted-map": "^3.1.0",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.29.0",
     "input-otp": "^1.4.2",
