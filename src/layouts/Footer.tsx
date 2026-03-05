@@ -5,6 +5,7 @@ import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { Particles } from '@/components/ui/highlighter';
 import { socialLinksData } from '@/data/social-links';
 import { teamMembers } from '@/data/team-members';
+import { CONTACT_DETAILS } from '@/constants/contact';
 
 const handleLinkClick = (e: MouseEvent) => {
   e.preventDefault();
@@ -109,11 +110,11 @@ export default function Footer() {
                     </svg>
                   </div>
                   <div className="space-y-1">
-                    <a href="mailto:compliance@sustainacert.com" className="block font-medium hover:text-emerald-300 transition-colors">
-                      compliance@sustainacert.com
+                    <a href={`mailto:${CONTACT_DETAILS.operationsEmail}`} className="block font-medium hover:text-emerald-300 transition-colors">
+                      {CONTACT_DETAILS.operationsEmail}
                     </a>
-                    <a href="mailto:info@sustainacert.com" className="block text-xs text-slate-400 hover:text-emerald-300 transition-colors">
-                      info@sustainacert.com
+                    <a href={`mailto:${CONTACT_DETAILS.infoEmail}`} className="block text-xs text-slate-400 hover:text-emerald-300 transition-colors">
+                      {CONTACT_DETAILS.infoEmail}
                     </a>
                   </div>
                 </div>
@@ -125,8 +126,11 @@ export default function Footer() {
                     </svg>
                   </div>
                   <div className="space-y-1">
-                    <a href="tel:+971569397516" className="block font-medium hover:text-emerald-300 transition-colors">
-                      +971 56 939 7516
+                    <a href={CONTACT_DETAILS.primaryPhoneHref} className="block font-medium hover:text-emerald-300 transition-colors">
+                      {CONTACT_DETAILS.primaryPhone}
+                    </a>
+                    <a href={CONTACT_DETAILS.secondaryPhoneHref} className="block hover:text-emerald-300 transition-colors">
+                      {CONTACT_DETAILS.secondaryPhone}
                     </a>
                   </div>
                 </div>
@@ -139,8 +143,8 @@ export default function Footer() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-medium">2501, Iris Bay, Business Bay,</div>
-                    <div className="text-slate-400 text-xs mt-0.5">Dubai, UAE</div>
+                    <div className="font-medium">{CONTACT_DETAILS.addressLine1}</div>
+                    <div className="text-slate-400 text-xs mt-0.5">{CONTACT_DETAILS.addressLine2}</div>
                   </div>
                 </div>
               </div>

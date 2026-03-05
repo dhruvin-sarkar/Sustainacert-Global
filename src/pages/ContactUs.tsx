@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { CONTACT_DETAILS } from '@/constants/contact';
 import { toast } from '@/hooks/use-toast';
 import Layout from '@/layouts/Layout';
 import GeographicalPresence from '@/components/sections/GeographicalPresence';
@@ -141,11 +142,11 @@ export default function ContactUs() {
                   </div>
                   <div>
                     <h3 className="mb-3 text-xl font-semibold leading-tight">Email</h3>
-                    <a href="mailto:compliance@sustainacert.com" className="text-muted-foreground hover:text-primary block">
-                      compliance@sustainacert.com
+                    <a href={`mailto:${CONTACT_DETAILS.operationsEmail}`} className="text-muted-foreground hover:text-primary block">
+                      {CONTACT_DETAILS.operationsEmail}
                     </a>
-                    <a href="mailto:info@sustainacert.com" className="text-muted-foreground hover:text-primary block">
-                      info@sustainacert.com
+                    <a href={`mailto:${CONTACT_DETAILS.infoEmail}`} className="text-muted-foreground hover:text-primary block">
+                      {CONTACT_DETAILS.infoEmail}
                     </a>
                   </div>
                 </div>
@@ -158,8 +159,11 @@ export default function ContactUs() {
                   </div>
                   <div>
                     <h3 className="mb-3 text-xl font-semibold leading-tight">Phone</h3>
-                    <a href="tel:+971569397516" className="text-muted-foreground hover:text-primary block">
-                      +971 56 939 7516
+                    <a href={CONTACT_DETAILS.primaryPhoneHref} className="text-muted-foreground hover:text-primary block">
+                      {CONTACT_DETAILS.primaryPhone}
+                    </a>
+                    <a href={CONTACT_DETAILS.secondaryPhoneHref} className="text-muted-foreground hover:text-primary block">
+                      {CONTACT_DETAILS.secondaryPhone}
                     </a>
                   </div>
                 </div>
@@ -173,10 +177,46 @@ export default function ContactUs() {
                   <div className="space-y-4">
                     <h3 className="text-xl font-semibold leading-tight">Address</h3>
                     <p className="text-base leading-7 text-muted-foreground">
-                      2501, Iris Bay, Business Bay,<br />
-                      Dubai, UAE
+                      {CONTACT_DETAILS.addressLine1}<br />
+                      {CONTACT_DETAILS.addressLine2}
+                    </p>
+                    <Button asChild variant="outline" size="sm">
+                      <a href={CONTACT_DETAILS.mapUrl} target="_blank" rel="noreferrer">
+                        Open in Google Maps
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-card rounded-2xl p-6 border border-border/50 shadow-soft md:p-8">
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <h3 className="text-2xl font-semibold leading-tight">Office Map</h3>
+                    <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
+                      Live Google Maps view of our Dubai office location.
                     </p>
                   </div>
+                  <a
+                    href={CONTACT_DETAILS.mapUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80"
+                  >
+                    Get directions
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+                <div className="mt-8 overflow-hidden rounded-2xl border border-border/60 bg-muted/20">
+                  <iframe
+                    title="Sustainacert Dubai Office Map"
+                    src={CONTACT_DETAILS.mapEmbedUrl}
+                    className="h-[320px] w-full md:h-[360px]"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
                 </div>
               </div>
             </motion.div>
