@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Layout from '@/layouts/Layout';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import { insights, categories } from '@/data/insights';
 
 export default function NewsBlogs() {
@@ -22,7 +23,7 @@ export default function NewsBlogs() {
               {insights.map((insight, index) => (
                 <motion.div key={insight.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
                   <Link to={`/insights/${insight.slug}`} className="group flex flex-col md:flex-row gap-6 bg-card rounded-xl p-4 border border-border/50 hover-lift">
-                    <img src={insight.coverImage} alt={insight.title} className="w-full md:w-48 h-32 object-cover rounded-lg" />
+                    <OptimizedImage src={insight.coverImage} alt={insight.title} className="h-32 w-full rounded-lg md:w-48 md:flex-shrink-0" aspectRatio="3/2" />
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">{insight.type}</span>
@@ -41,12 +42,12 @@ export default function NewsBlogs() {
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
                   {categories.map((cat) => (
-                    <li key={cat}><span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">{cat}</span></li>
+                    <li key={cat}><span className="text-sm text-muted-foreground">{cat}</span></li>
                   ))}
                 </ul>
               </div>
               <div className="bg-secondary/50 rounded-xl p-6">
-                <p className="text-sm text-muted-foreground leading-relaxed">Sustainability isn't only compliance—it's progress, integrity, and accountability. Our insights cover certification updates, climate action, and global policy.</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">Sustainability isn't only compliance-it's progress, integrity, and accountability. Our insights cover certification updates, climate action, and global policy.</p>
               </div>
             </aside>
           </div>
@@ -55,3 +56,4 @@ export default function NewsBlogs() {
     </Layout>
   );
 }
+

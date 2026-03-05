@@ -1,4 +1,3 @@
-import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { SocialLinks } from '@/components/ui/social-links';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
@@ -6,15 +5,6 @@ import { Particles } from '@/components/ui/highlighter';
 import { socialLinksData } from '@/data/social-links';
 import { teamMembers } from '@/data/team-members';
 import { CONTACT_DETAILS } from '@/constants/contact';
-
-const handleLinkClick = (e: MouseEvent) => {
-  e.preventDefault();
-  const href = e.currentTarget.getAttribute('href');
-  if (href) {
-    window.location.href = href;
-  }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-};
 
 export default function Footer() {
   return (
@@ -58,14 +48,13 @@ export default function Footer() {
                   { name: 'Contact', path: '/contact-us' }
                 ].map((link) => (
                   <li key={link.path}>
-                    <a
-                      href={link.path}
-                      onClick={handleLinkClick}
+                    <Link
+                      to={link.path}
                       className="text-sm text-slate-300 hover:text-emerald-300 transition-all duration-200 flex items-center group/link hover:translate-x-1"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/50 mr-3 group-hover/link:bg-emerald-400 group-hover/link:scale-125 transition-all"></span>
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -84,14 +73,13 @@ export default function Footer() {
                   { name: 'Verify Certification', path: '/verify' }
                 ].map((link) => (
                   <li key={link.path}>
-                    <a
-                      href={link.path}
-                      onClick={handleLinkClick}
+                    <Link
+                      to={link.path}
                       className="text-sm text-slate-300 hover:text-emerald-300 transition-all duration-200 flex items-center group/link hover:translate-x-1"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/50 mr-3 group-hover/link:bg-emerald-400 group-hover/link:scale-125 transition-all"></span>
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

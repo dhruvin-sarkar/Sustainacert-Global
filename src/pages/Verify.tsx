@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Shield, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
@@ -43,6 +43,7 @@ export default function Verify() {
   const [status, setStatus] = useState<VerificationStatus>('idle');
   const [result, setResult] = useState<CertificateData | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
+  const verifyTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (showConfetti) {
@@ -55,14 +56,29 @@ export default function Verify() {
     }
   }, [showConfetti]);
 
+  useEffect(() => {
+    return () => {
+      if (verifyTimeoutRef.current !== null) {
+        window.clearTimeout(verifyTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleVerify = (e: FormEvent) => {
     e.preventDefault();
+    const normalizedCertificateId = certificateId.trim().toUpperCase();
+
+    if (verifyTimeoutRef.current !== null) {
+      window.clearTimeout(verifyTimeoutRef.current);
+    }
+
+    setResult(null);
     setStatus('loading');
     setShowConfetti(false);
     
     // Simulate API call
-    setTimeout(() => {
-      const data = demoData[certificateId.toUpperCase()];
+    verifyTimeoutRef.current = window.setTimeout(() => {
+      const data = demoData[normalizedCertificateId];
       if (data) {
         setResult(data);
         setStatus('valid');
@@ -71,6 +87,7 @@ export default function Verify() {
         setResult(null);
         setStatus('not-found');
       }
+      verifyTimeoutRef.current = null;
     }, 1500);
   };
 
@@ -118,8 +135,14 @@ export default function Verify() {
                       id="certificateId"
                       value={certificateId}
                       onChange={(e) => {
+                        if (verifyTimeoutRef.current !== null) {
+                          window.clearTimeout(verifyTimeoutRef.current);
+                          verifyTimeoutRef.current = null;
+                        }
                         setCertificateId(e.target.value);
                         setStatus('idle');
+                        setResult(null);
+                        setShowConfetti(false);
                       }}
                       placeholder="e.g., SC-2024-001"
                       className="pr-12"

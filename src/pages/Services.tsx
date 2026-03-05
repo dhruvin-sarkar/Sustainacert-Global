@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BaseCard } from '@/components/ui/base-card';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import {
   Accordion,
   AccordionContent,
@@ -24,6 +25,8 @@ export default function Services() {
             src="/interior-view-steel-factory.jpg.jpeg"
             alt="Modern steel factory interior showing industrial certification environment"
             className="w-full h-full object-cover"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
@@ -84,10 +87,11 @@ export default function Services() {
                           2: "/technologist-food-processing-factory-controlling-process-apple-fruit-selection-production.jpg.jpeg"
                         };
                         return (
-                          <img 
+                          <OptimizedImage
                             src={imageMap[index as keyof typeof imageMap]}
                             alt={`${service.title} - Professional certification environment`}
-                            className="w-full h-48 object-cover"
+                            className="h-48 w-full"
+                            aspectRatio="4/3"
                           />
                         );
                       })()}

@@ -68,6 +68,8 @@ export default function Apply() {
             src="/pharmacy-industry-woman-worker-protective-clothing-operating-production-tablets-sterile-working-conditions.jpg.jpeg"
             alt="Pharmaceutical worker in sterile conditions demonstrating quality certification standards"
             className="w-full h-full object-cover"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>

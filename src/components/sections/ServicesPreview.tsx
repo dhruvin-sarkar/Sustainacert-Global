@@ -1,6 +1,7 @@
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { Award, Shield, Leaf, Search, GraduationCap } from 'lucide-react';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 
 const services = [
   {
@@ -91,12 +92,11 @@ export default function ServicesPreview() {
                 <div className="rounded-2xl overflow-hidden border border-white/35 dark:border-emerald-300/20 bg-white/35 dark:bg-white/5 backdrop-blur-xl shadow-[0_12px_32px_rgba(16,185,129,0.12)] h-full flex flex-col transition-all duration-300 hover:border-emerald-300/45">
                   {/* Service Image */}
                   <div className="relative h-40 overflow-hidden">
-                    <img 
+                    <OptimizedImage
                       src={service.image}
                       alt={`${service.title} - Professional certification environment`}
-                      className="w-full h-40 object-cover"
-                      loading="lazy"
-                      decoding="async"
+                      className="h-40 w-full"
+                      aspectRatio="4/3"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   </div>

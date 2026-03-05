@@ -56,7 +56,7 @@ export default function Newsletter() {
           
           <p className="text-gothic text-lg mb-8">
             Get updates on global certification standards, sustainability insights, 
-            and industry best practices — directly to your inbox.
+            and industry best practices - directly to your inbox.
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">

@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Layout from '@/layouts/Layout';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import { getInsightBySlug, getRelatedInsights, categories } from '@/data/insights';
 
 const normalizeInsightMarkdown = (content: string) =>
@@ -91,7 +92,7 @@ export default function InsightDetail() {
                     <span className="flex items-center gap-1"><Clock size={14} />{insight.readTime}</span>
                   </div>
                 </div>
-                <img src={insight.coverImage} alt={insight.title} className="w-full aspect-video object-cover rounded-2xl mb-8" />
+                <OptimizedImage src={insight.coverImage} alt={insight.title} className="mb-8 w-full rounded-2xl" aspectRatio="16/9" />
                 <div className="mt-10 max-w-3xl">
                   <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
                     {markdown}

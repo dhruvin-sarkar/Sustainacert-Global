@@ -1,10 +1,13 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Scale, FileCheck, CheckCircle, Award, Leaf, Globe, Monitor, Lock } from 'lucide-react';
 import Layout from '@/layouts/Layout';
 import CertificationProcess from '@/components/sections/CertificationProcess';
-import GeographicalPresence from '@/components/sections/GeographicalPresence';
+import { SectionLoader } from '@/components/ui/skeleton';
 import Testimonials from '@/components/sections/Testimonials';
 import Newsletter from '@/components/sections/Newsletter';
+
+const GeographicalPresence = lazy(() => import('@/components/sections/GeographicalPresence'));
 
 const qualityCommitments = [
   'Adherence to international standards and regulations',
@@ -227,7 +230,9 @@ export default function QualityPolicy() {
       </section>
 
       <CertificationProcess />
-      <GeographicalPresence />
+      <Suspense fallback={<div className="min-h-[360px]"><SectionLoader /></div>}>
+        <GeographicalPresence />
+      </Suspense>
       <Testimonials />
       <Newsletter />
     </Layout>

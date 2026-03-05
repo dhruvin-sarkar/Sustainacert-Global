@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle, ExternalLink } from 'lucide-react';
@@ -9,9 +9,11 @@ import { Label } from '@/components/ui/label';
 import { CONTACT_DETAILS } from '@/constants/contact';
 import { toast } from '@/hooks/use-toast';
 import Layout from '@/layouts/Layout';
-import GeographicalPresence from '@/components/sections/GeographicalPresence';
+import { SectionLoader } from '@/components/ui/skeleton';
 import Testimonials from '@/components/sections/Testimonials';
 import Newsletter from '@/components/sections/Newsletter';
+
+const GeographicalPresence = lazy(() => import('@/components/sections/GeographicalPresence'));
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -21,6 +23,13 @@ export default function ContactUs() {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    if (!submitted) return;
+
+    const timeout = window.setTimeout(() => setSubmitted(false), 3000);
+    return () => window.clearTimeout(timeout);
+  }, [submitted]);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
@@ -29,7 +38,6 @@ export default function ContactUs() {
       description: 'We will get back to you as soon as possible.',
     });
     setFormData({ name: '', email: '', message: '' });
-    setTimeout(() => setSubmitted(false), 3000);
   };
 
   return (
@@ -40,6 +48,8 @@ export default function ContactUs() {
             src="/technologist-food-processing-factory-controlling-process-apple-fruit-selection-production.jpg.jpeg"
             alt="Food processing facility showing quality control and certification environment"
             className="w-full h-full object-cover"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
@@ -224,7 +234,9 @@ export default function ContactUs() {
         </div>
       </section>
 
-      <GeographicalPresence />
+      <Suspense fallback={<div className="min-h-[360px]"><SectionLoader /></div>}>
+        <GeographicalPresence />
+      </Suspense>
       <Testimonials />
       <Newsletter />
     </Layout>

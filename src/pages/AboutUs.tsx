@@ -1,9 +1,13 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Target, Eye, CheckCircle, Users, Globe, Award } from 'lucide-react';
 import Layout from '@/layouts/Layout';
-import GeographicalPresence from '@/components/sections/GeographicalPresence';
+import OptimizedImage from '@/components/ui/OptimizedImage';
+import { SectionLoader } from '@/components/ui/skeleton';
 import Testimonials from '@/components/sections/Testimonials';
 import Newsletter from '@/components/sections/Newsletter';
+
+const GeographicalPresence = lazy(() => import('@/components/sections/GeographicalPresence'));
 
 const teamDomains = [
   'Sustainability',
@@ -47,6 +51,8 @@ export default function AboutUs() {
             src="/landscape-shot-green-hills-val-d-orcia-tuscany-italy-gloomy-sky.jpg.jpeg"
             alt="Sustainable green landscape in Tuscany"
             className="w-full h-full object-cover"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
@@ -117,10 +123,11 @@ export default function AboutUs() {
                 transition={{ duration: 0.6 }}
                 className="rounded-2xl overflow-hidden shadow-lg"
               >
-                <img 
+                <OptimizedImage
                   src="/two-researches-man-woman-examine-greenery-with-tablet-all-white-greenhouse.jpg.jpeg"
                   alt="Research team examining sustainable agriculture in greenhouse"
-                  className="w-full h-64 object-cover"
+                  className="h-64 w-full"
+                  aspectRatio="4/3"
                 />
               </motion.div>
 
@@ -202,7 +209,9 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <GeographicalPresence />
+      <Suspense fallback={<div className="min-h-[360px]"><SectionLoader /></div>}>
+        <GeographicalPresence />
+      </Suspense>
       <Testimonials />
       <Newsletter />
     </Layout>

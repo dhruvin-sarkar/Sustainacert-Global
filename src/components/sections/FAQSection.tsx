@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { FaqAccordion } from '@/components/ui/faq-chat-accordion';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import { sustainacertFAQs } from '@/data/faq-data';
 import { Connect } from '@/components/sections/Connect';
 
@@ -38,10 +39,11 @@ export default function FAQSection() {
             transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
             className="relative overflow-hidden rounded-2xl shadow-lg"
           >
-            <img 
+            <OptimizedImage
               src="/empty-laboratory-workspace-displays-jars-blood-samples-tools-prepared-analysis-clinical.jpg.jpeg"
               alt="Certification laboratory analysis process"
-              className="w-full h-48 object-cover"
+              className="h-48 w-full"
+              aspectRatio="3/2"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">
@@ -58,10 +60,11 @@ export default function FAQSection() {
             transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1, duration: 0.6 }}
             className="relative overflow-hidden rounded-2xl shadow-lg"
           >
-            <img 
+            <OptimizedImage
               src="/interior-large-distribution-warehouse-with-shelves-stacked-with-palettes-goods-ready-market.jpg.jpeg"
               alt="Industry standards in logistics and distribution"
-              className="w-full h-48 object-cover"
+              className="h-48 w-full"
+              aspectRatio="3/2"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">
@@ -78,10 +81,11 @@ export default function FAQSection() {
             transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.6 }}
             className="relative overflow-hidden rounded-2xl shadow-lg"
           >
-            <img 
+            <OptimizedImage
               src="/shot-wind-turbines-mountains.jpg.jpeg"
               alt="Sustainable practices and renewable energy"
-              className="w-full h-48 object-cover"
+              className="h-48 w-full"
+              aspectRatio="3/2"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4">

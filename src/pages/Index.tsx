@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Shield, CheckCircle } from 'lucide-react';
@@ -46,11 +46,7 @@ export default function Index() {
   const [showHeroContent, setShowHeroContent] = useState<boolean>(hasSeenHeroExpansion);
   const [heroTitle, setHeroTitle] = useState<string>("");
   const [heroDate, setHeroDate] = useState<string>("");
-
-  useEffect(() => {
-    // Ensure consistent entry point when route changes to home
-    window.scrollTo(0, 0);
-  }, []);
+  const heroContentTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const head = document.head;
@@ -67,6 +63,14 @@ export default function Index() {
     };
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (heroContentTimeoutRef.current !== null) {
+        window.clearTimeout(heroContentTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleExpansionComplete = () => {
     setExpansionComplete(true);
     if (!hasSeenHeroExpansion) {
@@ -77,14 +81,17 @@ export default function Index() {
         // Ignore storage failures and continue normal UX
       }
     }
-    // Wait 0.3 seconds after expansion completes, then fade in hero content (smoother transition)
-    setTimeout(() => {
+    if (heroContentTimeoutRef.current !== null) {
+      window.clearTimeout(heroContentTimeoutRef.current);
+    }
+
+    heroContentTimeoutRef.current = window.setTimeout(() => {
       setShowHeroContent(true);
+      heroContentTimeoutRef.current = null;
     }, 300);
   };
 
   const handleTextReady = (title: string, date: string) => {
-    console.log('Text ready:', title, date); // Debug log
     setHeroTitle(title);
     setHeroDate(date);
   };
@@ -297,7 +304,7 @@ export default function Index() {
                         supply chains.
                       </p>
                       <p className="text-muted-foreground leading-relaxed mb-8">
-                        Our approach is built on transparency, credibility, and excellence—helping businesses 
+                        Our approach is built on transparency, credibility, and excellence-helping businesses 
                         earn trust, meet international expectations, and support a more sustainable world.
                       </p>
 
