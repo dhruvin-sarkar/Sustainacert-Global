@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import Layout from '@/layouts/Layout';
 import { insights, categories } from '@/data/insights';
 
@@ -48,10 +47,6 @@ export default function NewsBlogs() {
               </div>
               <div className="bg-secondary/50 rounded-xl p-6">
                 <p className="text-sm text-muted-foreground leading-relaxed">Sustainability isn't only compliance—it's progress, integrity, and accountability. Our insights cover certification updates, climate action, and global policy.</p>
-              </div>
-              <div className="flex gap-4">
-                <Link to="/news" className="flex-1 text-center py-3 bg-card rounded-lg border border-border/50 text-sm font-medium hover:border-primary transition-colors">News</Link>
-                <Link to="/blogs" className="flex-1 text-center py-3 bg-card rounded-lg border border-border/50 text-sm font-medium hover:border-primary transition-colors">Blogs</Link>
               </div>
             </aside>
           </div>

@@ -1,13 +1,72 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
+import ReactMarkdown, { type Components } from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import Layout from '@/layouts/Layout';
 import { getInsightBySlug, getRelatedInsights, categories } from '@/data/insights';
+
+const normalizeInsightMarkdown = (content: string) =>
+  content
+    .replace(/\r\n/g, '\n')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+const markdownComponents: Components = {
+  h1: ({ children }) => (
+    <h1 className="mt-14 mb-5 text-2xl font-semibold tracking-tight text-white md:text-[2rem]">
+      {children}
+    </h1>
+  ),
+  h2: ({ children }) => (
+    <h2 className="mt-14 mb-5 text-2xl font-semibold tracking-tight text-white md:text-[2rem]">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="mt-8 mb-3 text-xl font-semibold tracking-tight text-white md:text-[1.5rem]">
+      {children}
+    </h3>
+  ),
+  p: ({ children }) => (
+    <p className="mb-6 text-[1rem] leading-8 text-foreground/82 md:text-[1.0625rem] [&:last-child]:mb-0">
+      {children}
+    </p>
+  ),
+  ol: ({ children }) => (
+    <ol className="my-7 ml-5 list-decimal space-y-3 pl-4 text-[1rem] leading-8 text-foreground/82 marker:font-semibold marker:text-primary md:text-[1.0625rem]">
+      {children}
+    </ol>
+  ),
+  ul: ({ children }) => (
+    <ul className="my-7 ml-5 list-disc space-y-3 pl-4 text-[1rem] leading-8 text-foreground/82 marker:text-primary md:text-[1.0625rem]">
+      {children}
+    </ul>
+  ),
+  li: ({ children }) => (
+    <li className="pl-1.5 [&>p]:mb-0">
+      {children}
+    </li>
+  ),
+  blockquote: ({ children }) => (
+    <blockquote className="my-8 rounded-r-2xl border-l-4 border-primary/45 bg-secondary/35 px-6 py-5 text-[1rem] leading-8 text-foreground/90 md:text-[1.0625rem] [&>p]:mb-0">
+      {children}
+    </blockquote>
+  ),
+  strong: ({ children }) => (
+    <strong className="font-semibold text-white">
+      {children}
+    </strong>
+  ),
+};
 
 export default function InsightDetail() {
   const { slug } = useParams();
   const insight = getInsightBySlug(slug || '');
   const related = insight ? getRelatedInsights(insight.id) : [];
+  const markdown = normalizeInsightMarkdown(insight?.content ?? '');
 
   if (!insight) {
     return <Layout><div className="py-40 text-center"><h1 className="text-2xl">Article not found</h1></div></Layout>;
@@ -20,19 +79,25 @@ export default function InsightDetail() {
           <Link to="/news-blogs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8">
             <ArrowLeft size={16} /> Back to Insights
           </Link>
-          
+
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">{insight.type}</span>
-                <h1 className="text-3xl md:text-4xl font-bold mt-4 mb-4">{insight.title}</h1>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8">
-                  <span className="flex items-center gap-1"><Calendar size={14} />{insight.date}</span>
-                  <span className="flex items-center gap-1"><Clock size={14} />{insight.readTime}</span>
+                <div className="max-w-3xl">
+                  <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">{insight.type}</span>
+                  <h1 className="mt-4 mb-4 text-3xl font-bold md:text-4xl">{insight.title}</h1>
+                  <div className="mb-8 flex items-center gap-4 text-sm text-muted-foreground">
+                    <span className="flex items-center gap-1"><Calendar size={14} />{insight.date}</span>
+                    <span className="flex items-center gap-1"><Clock size={14} />{insight.readTime}</span>
+                  </div>
                 </div>
                 <img src={insight.coverImage} alt={insight.title} className="w-full aspect-video object-cover rounded-2xl mb-8" />
-                <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: insight.content.replace(/\n/g, '<br/>') }} />
-                <div className="flex flex-wrap gap-2 mt-8">
+                <div className="mt-10 max-w-3xl">
+                  <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
+                    {markdown}
+                  </ReactMarkdown>
+                </div>
+                <div className="mt-8 flex max-w-3xl flex-wrap gap-2">
                   {insight.tags.map((tag) => <span key={tag} className="bg-secondary px-3 py-1 rounded-full text-sm">{tag}</span>)}
                 </div>
               </motion.div>
