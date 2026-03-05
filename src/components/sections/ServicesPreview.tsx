@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
-import { ArrowRight, Award, Shield, Leaf, Search, GraduationCap } from 'lucide-react';
+import { Award, Shield, Leaf, Search, GraduationCap } from 'lucide-react';
 
 const services = [
   {
@@ -88,11 +87,8 @@ export default function ServicesPreview() {
                   : { delay: index * 0.1, duration: 0.5 }
               }
             >
-              <Link
-                to={service.link}
-                className="group block h-full"
-              >
-                <div className="bg-card rounded-2xl overflow-hidden border border-border/50 shadow-soft h-full flex flex-col">
+              <div className="group block h-full">
+                <div className="rounded-2xl overflow-hidden border border-white/35 dark:border-emerald-300/20 bg-white/35 dark:bg-white/5 backdrop-blur-xl shadow-[0_12px_32px_rgba(16,185,129,0.12)] h-full flex flex-col transition-all duration-300 hover:border-emerald-300/45">
                   {/* Service Image */}
                   <div className="relative h-40 overflow-hidden">
                     <img 
@@ -116,13 +112,9 @@ export default function ServicesPreview() {
                     <p className="text-muted-foreground text-sm leading-relaxed flex-1">
                       {service.description}
                     </p>
-                    <div className="flex items-center gap-2 text-primary text-sm font-medium mt-4">
-                      Learn more
-                      <ArrowRight size={16} />
-                    </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             </motion.div>
           ))}
         </div>

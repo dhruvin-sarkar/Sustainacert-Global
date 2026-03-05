@@ -73,8 +73,8 @@ export default function Services() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Link to={service.link} className="group block h-full">
-                  <BaseCard className="p-0 h-full flex flex-col overflow-hidden border-0">
+                <div className="group block h-full">
+                  <BaseCard className="p-0 h-full flex flex-col overflow-hidden border-white/35 dark:border-emerald-300/20 bg-white/35 dark:bg-white/5 backdrop-blur-xl shadow-[0_12px_32px_rgba(16,185,129,0.12)] transition-all duration-300 hover:border-emerald-300/45">
                     {/* Service Image */}
                     <div className="relative h-48 overflow-hidden">
                       {(() => {
@@ -105,13 +105,9 @@ export default function Services() {
                       <p className="text-muted-foreground leading-relaxed flex-1">
                         {service.description}
                       </p>
-                      <div className="flex items-center gap-2 text-primary font-medium mt-auto">
-                        Learn more
-                        <ArrowRight size={16} />
-                      </div>
                     </div>
                   </BaseCard>
-                </Link>
+                </div>
               </motion.div>
             ))}
           </div>
