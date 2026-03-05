@@ -20,6 +20,8 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
+  const darkTransparentHeader = isDark && !isScrolled;
+  const lightTransparentHeader = !isDark && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +40,11 @@ export default function Header() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-background/95 backdrop-blur-md shadow-soft py-3'
-          : 'bg-transparent py-5'
+          : darkTransparentHeader
+            ? 'bg-black/25 backdrop-blur-sm py-5'
+            : lightTransparentHeader
+              ? 'bg-white/12 backdrop-blur-sm shadow-[0_4px_18px_rgba(15,42,42,0.08)] py-5'
+              : 'bg-transparent py-5'
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
@@ -61,10 +67,22 @@ export default function Header() {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-sm font-medium transition-colors ${
                   location.pathname === item.href
-                    ? 'text-primary'
-                    : 'text-muted-foreground'
+                    ? lightTransparentHeader
+                      ? 'text-white'
+                      : 'text-primary'
+                    : darkTransparentHeader
+                      ? 'text-white/90 hover:text-white'
+                      : lightTransparentHeader
+                        ? 'text-white/90 hover:text-white'
+                        : 'text-muted-foreground hover:text-primary'
+                } ${
+                  darkTransparentHeader
+                    ? 'drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]'
+                    : lightTransparentHeader
+                      ? 'drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]'
+                      : ''
                 }`}
               >
                 {item.name}
@@ -74,7 +92,18 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="outline" size="sm" asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              asChild
+              className={
+                darkTransparentHeader
+                  ? 'border-white/70 bg-black/25 text-white hover:bg-black/35 hover:text-white'
+                  : lightTransparentHeader
+                    ? 'border-white/50 bg-white/14 text-white hover:bg-white/20 hover:text-white'
+                    : ''
+              }
+            >
               <Link to="/verify">Verify Certification</Link>
             </Button>
             <Button size="sm" asChild>
@@ -86,7 +115,13 @@ export default function Header() {
           <div className="flex lg:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-foreground"
+              className={
+                darkTransparentHeader
+                  ? 'p-2 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]'
+                  : lightTransparentHeader
+                    ? 'p-2 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]'
+                    : 'p-2 text-foreground'
+              }
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

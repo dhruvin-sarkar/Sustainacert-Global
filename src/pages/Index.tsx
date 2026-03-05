@@ -8,6 +8,10 @@ import Layout from '@/layouts/Layout';
 import ScrollExpandMedia from '@/components/ui/scroll-expansion-hero';
 import { SectionLoader } from '@/components/ui/skeleton';
 
+const HERO_VIDEO_URL = '/hero_video.mp4';
+const HERO_POSTER_URL = '/landscape-shot-green-hills-val-d-orcia-tuscany-italy-gloomy-sky.jpg.jpeg';
+const HERO_EXPANSION_SEEN_KEY = 'sustainacert.heroExpansionSeen';
+
 // Lazy load below-the-fold sections for better initial load performance
 const ServicesPreview = lazy(() => import('@/components/sections/ServicesPreview'));
 const CertificationProcess = lazy(() => import('@/components/sections/CertificationProcess'));
@@ -30,22 +34,49 @@ const trustedPartners = [
 const companyValues = ['Independent & Impartial', 'Globally Recognized', 'Sustainability Driven', 'Technology Enabled'];
 
 export default function Index() {
-  const [expansionComplete, setExpansionComplete] = useState(false);
-  const [showHeroContent, setShowHeroContent] = useState(false);
+  const [hasSeenHeroExpansion, setHasSeenHeroExpansion] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      return window.localStorage.getItem(HERO_EXPANSION_SEEN_KEY) === 'true';
+    } catch {
+      return false;
+    }
+  });
+  const [expansionComplete, setExpansionComplete] = useState<boolean>(hasSeenHeroExpansion);
+  const [showHeroContent, setShowHeroContent] = useState<boolean>(hasSeenHeroExpansion);
   const [heroTitle, setHeroTitle] = useState<string>("");
   const [heroDate, setHeroDate] = useState<string>("");
 
   useEffect(() => {
-    // Reset on mount
-    setExpansionComplete(false);
-    setShowHeroContent(false);
-    setHeroTitle("");
-    setHeroDate("");
+    // Ensure consistent entry point when route changes to home
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const head = document.head;
+
+    const preload = document.createElement('link');
+    preload.rel = 'preload';
+    preload.as = 'video';
+    preload.href = HERO_VIDEO_URL;
+
+    head.appendChild(preload);
+
+    return () => {
+      head.removeChild(preload);
+    };
   }, []);
 
   const handleExpansionComplete = () => {
     setExpansionComplete(true);
+    if (!hasSeenHeroExpansion) {
+      setHasSeenHeroExpansion(true);
+      try {
+        window.localStorage.setItem(HERO_EXPANSION_SEEN_KEY, 'true');
+      } catch {
+        // Ignore storage failures and continue normal UX
+      }
+    }
     // Wait 0.3 seconds after expansion completes, then fade in hero content (smoother transition)
     setTimeout(() => {
       setShowHeroContent(true);
@@ -88,16 +119,27 @@ export default function Index() {
     <>
       {/* BACKGROUND VIDEO - Always visible, never removed */}
       <div className="fixed inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-          poster="https://images.pexels.com/videos/5752729/space-earth-universe-cosmos-5752729.jpeg"
-        >
-          <source src="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1" type="video/mp4" />
-        </video>
+        {expansionComplete ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover"
+            poster={HERO_POSTER_URL}
+          >
+            <source src={HERO_VIDEO_URL} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={HERO_POSTER_URL}
+            alt="Hero poster"
+            className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+          />
+        )}
       </div>
 
       {/* PHASE 1: Scroll Expansion Overlay (fades out after completion) */}
@@ -110,8 +152,8 @@ export default function Index() {
           >
             <ScrollExpandMedia
               mediaType="video"
-              mediaSrc="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1"
-              posterSrc="https://images.pexels.com/videos/5752729/space-earth-universe-cosmos-5752729.jpeg"
+              mediaSrc={HERO_VIDEO_URL}
+              posterSrc={HERO_POSTER_URL}
               bgImageSrc="/landscape-shot-green-hills-val-d-orcia-tuscany-italy-gloomy-sky.jpg.jpeg"
               title="GLOBAL STANDARDS TRUSTED CERTIFICATION"
               date="Independent Global Certification Body"
@@ -163,17 +205,21 @@ export default function Index() {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1, duration: 0.3 }}
-                      className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+                      className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-[0_2px_12px_rgba(6,95,70,0.45)]"
                     >
                       {heroTitle && (
                         <>
-                          <span className="block">{heroTitle.split(' ').slice(0, 2).join(' ')}</span>
-                          <span className="block text-gradient">{heroTitle.split(' ').slice(2).join(' ')}</span>
+                          <span className="block text-emerald-200">{heroTitle.split(' ').slice(0, 2).join(' ')}</span>
+                          <span className="block bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-300 bg-clip-text text-transparent">
+                            {heroTitle.split(' ').slice(2).join(' ')}
+                          </span>
                         </>
                       ) || (
                         <>
-                          <span className="block">GLOBAL STANDARDS</span>
-                          <span className="block text-gradient">TRUSTED CERTIFICATION</span>
+                          <span className="block text-emerald-200">GLOBAL STANDARDS</span>
+                          <span className="block bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-300 bg-clip-text text-transparent">
+                            TRUSTED CERTIFICATION
+                          </span>
                         </>
                       )}
                     </motion.h1>
@@ -182,7 +228,7 @@ export default function Index() {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.15, duration: 0.3 }}
-                      className="text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
+                      className="text-xl text-emerald-100/90 max-w-2xl mb-10 leading-relaxed"
                     >
                       Independent certification, inspection, and verification services enabling sustainable, 
                       ethical, and compliant global supply chains. Building trust across industries worldwide.
