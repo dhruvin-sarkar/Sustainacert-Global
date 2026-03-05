@@ -33,18 +33,16 @@ export default function ContactUs() {
 
   return (
     <Layout>
-      {/* Hero */}
       <section className="relative py-20 overflow-hidden">
-        {/* Background Image */}
         <div className="absolute inset-0">
-          <img 
+          <img
             src="/technologist-food-processing-factory-controlling-process-apple-fruit-selection-production.jpg.jpeg"
             alt="Food processing facility showing quality control and certification environment"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
-        
+
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -59,18 +57,16 @@ export default function ContactUs() {
               We'd Love to <span className="text-emerald-400">Hear From You</span>
             </h1>
             <p className="text-xl leading-relaxed text-white/90">
-              Have questions about our certification services? Get in touch with our team 
+              Have questions about our certification services? Get in touch with our team
               and we'll help you find the right solution.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -129,7 +125,6 @@ export default function ContactUs() {
               </form>
             </motion.div>
 
-            {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -145,12 +140,12 @@ export default function ContactUs() {
                     <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2">Email</h3>
-                    <a href="mailto:compliance@sustanacert.com" className="text-muted-foreground hover:text-primary block">
-                      compliance@sustanacert.com
+                    <h3 className="mb-3 text-xl font-semibold leading-tight">Email</h3>
+                    <a href="mailto:compliance@sustainacert.com" className="text-muted-foreground hover:text-primary block">
+                      compliance@sustainacert.com
                     </a>
-                    <a href="mailto:info@sustanacert.com" className="text-muted-foreground hover:text-primary block">
-                      info@sustanacert.com
+                    <a href="mailto:info@sustainacert.com" className="text-muted-foreground hover:text-primary block">
+                      info@sustainacert.com
                     </a>
                   </div>
                 </div>
@@ -162,8 +157,8 @@ export default function ContactUs() {
                     <Phone className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2">Phone</h3>
-                    <a href="tel:+971569397516" className="text-muted-foreground hover:text-primary">
+                    <h3 className="mb-3 text-xl font-semibold leading-tight">Phone</h3>
+                    <a href="tel:+971569397516" className="text-muted-foreground hover:text-primary block">
                       +971 56 939 7516
                     </a>
                   </div>
@@ -175,21 +170,13 @@ export default function ContactUs() {
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-2">Address</h3>
-                    <p className="text-muted-foreground">
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-semibold leading-tight">Address</h3>
+                    <p className="text-base leading-7 text-muted-foreground">
                       2501, Iris Bay, Business Bay,<br />
                       Dubai, UAE
                     </p>
                   </div>
-                </div>
-              </div>
-
-              {/* Map Placeholder */}
-              <div className="bg-secondary/50 rounded-2xl aspect-[16/9] flex items-center justify-center border border-border/50">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-primary mx-auto mb-2" />
-                  <p className="text-muted-foreground text-sm">Business Bay, Dubai</p>
                 </div>
               </div>
             </motion.div>
