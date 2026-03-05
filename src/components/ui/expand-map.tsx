@@ -1,19 +1,28 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useRef } from "react"
-import type { ReactNode } from "react"
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion"
 
 interface LocationMapProps {
   location?: string
   coordinates?: string
   className?: string
+  collapsedWidth?: number
+  collapsedHeight?: number
+  expandedWidth?: number
+  expandedHeight?: number
 }
 
 export function LocationMap({
   location = "San Francisco, CA",
-  coordinates = "37.7749° N, 122.4194° W",
+  coordinates = "37.7749\u00b0 N, 122.4194\u00b0 W",
   className,
+  collapsedWidth = 240,
+  collapsedHeight = 140,
+  expandedWidth = 360,
+  expandedHeight = 280,
 }: LocationMapProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -50,8 +59,9 @@ export function LocationMap({
   return (
     <motion.div
       ref={containerRef}
-      className={`relative cursor-pointer select-none ${className}`}
+      className={`relative w-full cursor-pointer select-none ${className ?? ""}`}
       style={{
+        maxWidth: expandedWidth,
         perspective: 1000,
       }}
       onMouseMove={handleMouseMove}
@@ -60,16 +70,16 @@ export function LocationMap({
       onClick={handleClick}
     >
       <motion.div
-        className="relative overflow-hidden rounded-2xl bg-slate-900/50 border-2"
+        className="relative inline-block overflow-hidden rounded-2xl bg-background border border-border"
         style={{
           rotateX: springRotateX,
           rotateY: springRotateY,
+          maxWidth: "100%",
           transformStyle: "preserve-3d",
-          borderColor: isExpanded ? '#10b981' : '#334155',
         }}
         animate={{
-          width: isExpanded ? 360 : 240,
-          height: isExpanded ? 280 : 140,
+          width: isExpanded ? expandedWidth : collapsedWidth,
+          height: isExpanded ? expandedHeight : collapsedHeight,
         }}
         transition={{
           type: "spring",
@@ -77,8 +87,7 @@ export function LocationMap({
           damping: 35,
         }}
       >
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-emerald-500/5" />
+        <div className="absolute inset-0 bg-gradient-to-br from-muted/20 via-transparent to-muted/40" />
 
         <AnimatePresence>
           {isExpanded && (
@@ -89,16 +98,15 @@ export function LocationMap({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              <div className="absolute inset-0 bg-slate-800/90" />
+              <div className="absolute inset-0 bg-muted" />
 
-              <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
-                {/* Main roads */}
+              <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
                 <motion.line
                   x1="0%"
                   y1="35%"
                   x2="100%"
                   y2="35%"
-                  className="stroke-emerald-500/40"
+                  className="stroke-foreground/25"
                   strokeWidth="4"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
@@ -109,20 +117,19 @@ export function LocationMap({
                   y1="65%"
                   x2="100%"
                   y2="65%"
-                  className="stroke-emerald-500/40"
+                  className="stroke-foreground/25"
                   strokeWidth="4"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
                 />
 
-                {/* Vertical main roads */}
                 <motion.line
                   x1="30%"
                   y1="0%"
                   x2="30%"
                   y2="100%"
-                  className="stroke-emerald-500/30"
+                  className="stroke-foreground/20"
                   strokeWidth="3"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
@@ -133,14 +140,13 @@ export function LocationMap({
                   y1="0%"
                   x2="70%"
                   y2="100%"
-                  className="stroke-emerald-500/30"
+                  className="stroke-foreground/20"
                   strokeWidth="3"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                 />
 
-                {/* Secondary streets */}
                 {[20, 50, 80].map((y, i) => (
                   <motion.line
                     key={`h-${i}`}
@@ -148,7 +154,7 @@ export function LocationMap({
                     y1={`${y}%`}
                     x2="100%"
                     y2={`${y}%`}
-                    className="stroke-slate-500/20"
+                    className="stroke-foreground/10"
                     strokeWidth="1.5"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
@@ -162,7 +168,7 @@ export function LocationMap({
                     y1="0%"
                     x2={`${x}%`}
                     y2="100%"
-                    className="stroke-slate-500/20"
+                    className="stroke-foreground/10"
                     strokeWidth="1.5"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
@@ -171,39 +177,38 @@ export function LocationMap({
                 ))}
               </svg>
 
-              {/* Buildings */}
               <motion.div
-                className="absolute top-[40%] left-[10%] w-[15%] h-[20%] rounded-sm bg-slate-600/40 border border-slate-500/30"
+                className="absolute top-[40%] left-[10%] h-[20%] w-[15%] rounded-sm bg-muted-foreground/30 border border-muted-foreground/20"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
               />
               <motion.div
-                className="absolute top-[15%] left-[35%] w-[12%] h-[15%] rounded-sm bg-slate-600/35 border border-slate-500/25"
+                className="absolute top-[15%] left-[35%] h-[15%] w-[12%] rounded-sm bg-muted-foreground/25 border border-muted-foreground/15"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.6 }}
               />
               <motion.div
-                className="absolute top-[70%] left-[75%] w-[18%] h-[18%] rounded-sm bg-slate-600/38 border border-slate-500/28"
+                className="absolute top-[70%] left-[75%] h-[18%] w-[18%] rounded-sm bg-muted-foreground/28 border border-muted-foreground/18"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.7 }}
               />
               <motion.div
-                className="absolute top-[20%] right-[10%] w-[10%] h-[25%] rounded-sm bg-slate-600/32 border border-slate-500/22"
+                className="absolute top-[20%] right-[10%] h-[25%] w-[10%] rounded-sm bg-muted-foreground/22 border border-muted-foreground/15"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.55 }}
               />
               <motion.div
-                className="absolute top-[55%] left-[5%] w-[8%] h-[12%] rounded-sm bg-slate-600/30 border border-slate-500/20"
+                className="absolute top-[55%] left-[5%] h-[12%] w-[8%] rounded-sm bg-muted-foreground/20 border border-muted-foreground/12"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.65 }}
               />
               <motion.div
-                className="absolute top-[8%] left-[75%] w-[14%] h-[10%] rounded-sm bg-slate-600/32 border border-slate-500/22"
+                className="absolute top-[8%] left-[75%] h-[10%] w-[14%] rounded-sm bg-muted-foreground/22 border border-muted-foreground/15"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.75 }}
@@ -221,37 +226,34 @@ export function LocationMap({
                   viewBox="0 0 24 24"
                   fill="none"
                   className="drop-shadow-lg"
-                  style={{ filter: "drop-shadow(0 0 10px rgba(16, 185, 129, 0.5))" }}
+                  style={{ filter: "drop-shadow(0 0 10px rgba(52, 211, 153, 0.5))" }}
                 >
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#10b981" />
-                  <circle cx="12" cy="9" r="2.5" className="fill-white" />
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#34D399" />
+                  <circle cx="12" cy="9" r="2.5" className="fill-background" />
                 </svg>
               </motion.div>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Grid pattern - only show when collapsed */}
         <motion.div
-          className="absolute inset-0 opacity-[0.05]"
-          animate={{ opacity: isExpanded ? 0 : 0.05 }}
+          className="absolute inset-0 opacity-[0.03]"
+          animate={{ opacity: isExpanded ? 0 : 0.03 }}
           transition={{ duration: 0.3 }}
         >
           <svg width="100%" height="100%" className="absolute inset-0">
             <defs>
               <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" className="stroke-emerald-500" strokeWidth="0.5" />
+                <path d="M 20 0 L 0 0 0 20" fill="none" className="stroke-foreground" strokeWidth="0.5" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
         </motion.div>
 
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col justify-between p-5">
-          {/* Top section */}
+        <div className="relative z-10 flex h-full flex-col justify-between p-5">
           <div className="flex items-start justify-between">
             <div className="relative">
               <motion.div
@@ -261,7 +263,6 @@ export function LocationMap({
                 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Map Icon SVG */}
                 <motion.svg
                   width="18"
                   height="18"
@@ -274,8 +275,8 @@ export function LocationMap({
                   className="text-emerald-400"
                   animate={{
                     filter: isHovered
-                      ? "drop-shadow(0 0 8px rgba(16, 185, 129, 0.6))"
-                      : "drop-shadow(0 0 4px rgba(16, 185, 129, 0.3))",
+                      ? "drop-shadow(0 0 8px rgba(52, 211, 153, 0.6))"
+                      : "drop-shadow(0 0 4px rgba(52, 211, 153, 0.3))",
                   }}
                   transition={{ duration: 0.3 }}
                 >
@@ -286,24 +287,22 @@ export function LocationMap({
               </motion.div>
             </div>
 
-            {/* Status indicator */}
             <motion.div
-              className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/5 backdrop-blur-sm"
+              className="flex items-center gap-1.5 rounded-full bg-foreground/5 px-2 py-1 backdrop-blur-sm"
               animate={{
                 scale: isHovered ? 1.05 : 1,
-                backgroundColor: isHovered ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.05)",
+                backgroundColor: isHovered ? "hsl(var(--foreground) / 0.08)" : "hsl(var(--foreground) / 0.05)",
               }}
               transition={{ duration: 0.2 }}
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span className="text-[10px] font-medium text-slate-400 tracking-wide uppercase">Live</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">Live</span>
             </motion.div>
           </div>
 
-          {/* Bottom section */}
           <div className="space-y-1">
             <motion.h3
-              className="text-white font-semibold text-sm tracking-tight"
+              className="text-sm font-medium tracking-tight text-foreground"
               animate={{
                 x: isHovered ? 4 : 0,
               }}
@@ -315,7 +314,7 @@ export function LocationMap({
             <AnimatePresence>
               {isExpanded && (
                 <motion.p
-                  className="text-slate-400 text-xs font-mono"
+                  className="text-xs font-mono text-muted-foreground"
                   initial={{ opacity: 0, y: -10, height: 0 }}
                   animate={{ opacity: 1, y: 0, height: "auto" }}
                   exit={{ opacity: 0, y: -10, height: 0 }}
@@ -326,7 +325,6 @@ export function LocationMap({
               )}
             </AnimatePresence>
 
-            {/* Animated underline */}
             <motion.div
               className="h-px bg-gradient-to-r from-emerald-500/50 via-emerald-400/30 to-transparent"
               initial={{ scaleX: 0, originX: 0 }}
@@ -337,12 +335,10 @@ export function LocationMap({
             />
           </div>
         </div>
-
       </motion.div>
 
-      {/* Click hint */}
       <motion.p
-        className="absolute -bottom-6 left-1/2 text-[10px] text-slate-400 whitespace-nowrap"
+        className="absolute -bottom-6 left-1/2 whitespace-nowrap text-[10px] text-muted-foreground"
         style={{ x: "-50%" }}
         initial={{ opacity: 0 }}
         animate={{
