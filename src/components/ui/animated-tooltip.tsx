@@ -16,6 +16,7 @@ export interface TooltipItem {
   name: string;
   designation: string;
   image: string;
+  profileUrl?: string;
 }
 
 interface AnimatedTooltipProps {
@@ -95,14 +96,22 @@ export const AnimatedTooltip: FC<AnimatedTooltipProps> = ({
             )}
           </AnimatePresence>
           
-          <img
-            onMouseMove={handleMouseMove}
-            src={item.image}
-            alt={item.name}
-            loading="lazy"
-            decoding="async"
-            className="object-cover object-top rounded-full h-12 w-12 border-2 border-emerald-900/50 group-hover:border-emerald-400 group-hover:scale-125 group-hover:z-30 relative transition-all duration-300 cursor-pointer shadow-lg"
-          />
+          <a
+            href={item.profileUrl}
+            target={item.profileUrl ? "_blank" : undefined}
+            rel={item.profileUrl ? "noopener noreferrer" : undefined}
+            aria-label={item.profileUrl ? `${item.name} LinkedIn profile` : item.name}
+            className="block"
+          >
+            <img
+              onMouseMove={handleMouseMove}
+              src={item.image}
+              alt={item.name}
+              loading="lazy"
+              decoding="async"
+              className="object-cover object-top rounded-full h-12 w-12 border-2 border-emerald-900/50 group-hover:border-emerald-400 group-hover:scale-125 group-hover:z-30 relative transition-all duration-300 cursor-pointer shadow-lg"
+            />
+          </a>
         </div>
       ))}
     </div>

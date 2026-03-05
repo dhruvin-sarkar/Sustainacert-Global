@@ -18,45 +18,32 @@ const handleLinkClick = (e: MouseEvent) => {
 export default function Footer() {
   return (
     <footer className="relative bg-[#0A1E1E] text-white overflow-hidden">
-      {/* Enhanced Particle Background */}
-      <Particles 
-        className="absolute inset-0 pointer-events-none opacity-15" 
+      <Particles
+        className="absolute inset-0 pointer-events-none opacity-15"
         quantity={60}
         color="#10b981"
         staticity={40}
         ease={60}
       />
 
-      {/* Main Footer Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        
-        {/* Top Section: Company Info + Social Links */}
         <div className="py-12 border-b border-emerald-500/10">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
-            
-            {/* Left: Company Description */}
             <div className="flex-1 max-w-2xl">
               <p className="text-slate-300 leading-relaxed text-sm">
                 An independent global certification, inspection, and verification body focused on sustainability, ethical sourcing, and quality assurance across international supply chains.
               </p>
             </div>
 
-            {/* Right: Social Links */}
             <div className="flex flex-col items-start lg:items-end mt-16">
               <SocialLinks socials={socialLinksData} />
             </div>
           </div>
         </div>
 
-        {/* SECTION 2: Main Links - SIMPLIFIED WITHOUT HIGHLIGHTER */}
         <div className="py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Quick Links */}
-            <div className="relative p-6 rounded-2xl h-full transition-all duration-300
-                          backdrop-blur-xl bg-gradient-to-br from-emerald-950/40 to-emerald-900/20 
-                          border border-emerald-500/20 hover:border-emerald-400/40
-                          shadow-lg hover:shadow-emerald-500/20">
+            <div className="relative p-6 rounded-2xl h-full transition-all duration-300 backdrop-blur-xl bg-gradient-to-br from-emerald-950/40 to-emerald-900/20 border border-emerald-500/20 hover:border-emerald-400/40 shadow-lg hover:shadow-emerald-500/20">
               <h3 className="text-base font-bold text-white mb-5 flex items-center gap-2">
                 <div className="w-1 h-5 bg-emerald-400 rounded-full"></div>
                 Quick Links
@@ -70,7 +57,7 @@ export default function Footer() {
                   { name: 'Contact', path: '/contact-us' }
                 ].map((link) => (
                   <li key={link.path}>
-                    <a 
+                    <a
                       href={link.path}
                       onClick={handleLinkClick}
                       className="text-sm text-slate-300 hover:text-emerald-300 transition-all duration-200 flex items-center group/link hover:translate-x-1"
@@ -83,11 +70,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Resources */}
-            <div className="relative p-6 rounded-2xl h-full transition-all duration-300
-                          backdrop-blur-xl bg-gradient-to-br from-emerald-950/40 to-emerald-900/20 
-                          border border-emerald-500/20 hover:border-emerald-400/40
-                          shadow-lg hover:shadow-emerald-500/20">
+            <div className="relative p-6 rounded-2xl h-full transition-all duration-300 backdrop-blur-xl bg-gradient-to-br from-emerald-950/40 to-emerald-900/20 border border-emerald-500/20 hover:border-emerald-400/40 shadow-lg hover:shadow-emerald-500/20">
               <h3 className="text-base font-bold text-white mb-5 flex items-center gap-2">
                 <div className="w-1 h-5 bg-emerald-400 rounded-full"></div>
                 Resources
@@ -100,7 +83,7 @@ export default function Footer() {
                   { name: 'Verify Certification', path: '/verify' }
                 ].map((link) => (
                   <li key={link.path}>
-                    <a 
+                    <a
                       href={link.path}
                       onClick={handleLinkClick}
                       className="text-sm text-slate-300 hover:text-emerald-300 transition-all duration-200 flex items-center group/link hover:translate-x-1"
@@ -113,45 +96,41 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Contact Us */}
-            <div className="relative p-6 rounded-2xl h-full transition-all duration-300
-                          backdrop-blur-xl bg-gradient-to-br from-emerald-950/40 to-emerald-900/20 
-                          border border-emerald-500/20 hover:border-emerald-400/40
-                          shadow-lg hover:shadow-emerald-500/20">
+            <div className="relative p-6 rounded-2xl h-full transition-all duration-300 backdrop-blur-xl bg-gradient-to-br from-emerald-950/40 to-emerald-900/20 border border-emerald-500/20 hover:border-emerald-400/40 shadow-lg hover:shadow-emerald-500/20">
               <h3 className="text-base font-bold text-white mb-5 flex items-center gap-2">
                 <div className="w-1 h-5 bg-emerald-400 rounded-full"></div>
                 Contact Us
               </h3>
               <div className="space-y-4">
-                <a 
-                  href="mailto:compliance@sustanacert.com"
-                  className="flex items-start gap-3 text-sm text-slate-300 hover:text-emerald-300 transition-all duration-200 group/link"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0 group-hover/link:bg-emerald-500/20 transition-colors">
+                <div className="flex items-start gap-3 text-sm text-slate-300">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
                     <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <div>
-                    <div className="font-medium">compliance@sustanacert.com</div>
-                    <div className="text-xs text-slate-400 mt-0.5">info@sustanacert.com</div>
+                  <div className="space-y-1">
+                    <a href="mailto:compliance@sustainacert.com" className="block font-medium hover:text-emerald-300 transition-colors">
+                      compliance@sustainacert.com
+                    </a>
+                    <a href="mailto:info@sustainacert.com" className="block text-xs text-slate-400 hover:text-emerald-300 transition-colors">
+                      info@sustainacert.com
+                    </a>
                   </div>
-                </a>
-                
-                <a 
-                  href="tel:+971569397516"
-                  className="flex items-start gap-3 text-sm text-slate-300 hover:text-emerald-300 transition-all duration-200 group/link"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0 group-hover/link:bg-emerald-500/20 transition-colors">
+                </div>
+
+                <div className="flex items-start gap-3 text-sm text-slate-300">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
                     <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
-                  <div>
-                    <div className="font-medium">+971 56 939 7516</div>
+                  <div className="space-y-1">
+                    <a href="tel:+971569397516" className="block font-medium hover:text-emerald-300 transition-colors">
+                      +971 56 939 7516
+                    </a>
                   </div>
-                </a>
-                
+                </div>
+
                 <div className="flex items-start gap-3 text-sm text-slate-300">
                   <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
                     <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -169,22 +148,17 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar with CENTERED Team Tooltips */}
         <div className="py-8 border-t border-emerald-500/10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-            
-            {/* Left: Copyright */}
             <div className="text-sm text-slate-400 text-center lg:text-left order-2 lg:order-1">
-              © 2026 SUSTAINACERT International. All rights reserved.
+              (c) 2026 SUSTAINACERT International. All rights reserved.
             </div>
 
-            {/* Center: Team Members - PERFECTLY CENTERED */}
             <div className="flex flex-col items-center gap-3 order-1 lg:order-2">
               <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Our Expert Team</span>
               <AnimatedTooltip items={teamMembers} />
             </div>
 
-            {/* Right: Tagline */}
             <div className="text-sm text-slate-400 text-center lg:text-right order-3">
               Global Standards, Trusted Certification
             </div>

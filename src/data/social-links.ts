@@ -1,18 +1,18 @@
 export const socialLinksData = [
   {
     name: "LinkedIn",
-    url: "https://www.linkedin.com/in/sustainacert-global-standards-trusted-certification-1b9772390/"
+    url: "https://www.linkedin.com/company/sustainacert"
   },
   {
-    name: "Twitter", 
+    name: "X", 
     url: "https://x.com/sustainacert"
   },
   {
     name: "Facebook",
-    url: "https://www.facebook.com/people/SustainaCert/61582772228256/"
+    url: "https://www.facebook.com/profile.php?id=61585937254903"
   },
   {
     name: "Instagram",
-    url: "https://www.instagram.com/sustainacert"
+    url: "https://www.instagram.com/sustainacert/"
   }
 ];

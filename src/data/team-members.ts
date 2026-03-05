@@ -3,26 +3,23 @@ import { TooltipItem } from "@/components/ui/animated-tooltip";
 export const teamMembers: TooltipItem[] = [
   {
     id: 1,
-    name: "Sarah Al-Mansoori",
-    designation: "Lead Auditor",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=faces"
+    name: "Tapas Kumar Sharma",
+    designation: "Operations Manager",
+    profileUrl: "https://www.linkedin.com/in/tapassharma/",
+    image: "https://api.dicebear.com/9.x/personas/svg?seed=Tapas%20Kumar%20Sharma&backgroundColor=bbf7d0,86efac,4ade80"
   },
   {
     id: 2,
-    name: "Ahmed Hassan",
-    designation: "Certification Manager",
-    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?w=100&h=100&fit=crop&crop=faces"
+    name: "Kimberlie Anne Torregoza",
+    designation: "Business Executive",
+    profileUrl: "https://www.linkedin.com/in/kimberlie-torregoza-5a080a359/",
+    image: "/Kimberlie.jpg"
   },
   {
     id: 3,
-    name: "Fatima Khan",
-    designation: "Quality Director",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=faces"
-  },
-  {
-    id: 4,
-    name: "Omar Abdullah",
-    designation: "ESG Consultant",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces"
+    name: "Arshad TK",
+    designation: "Marketing Specialist",
+    profileUrl: "https://www.linkedin.com/in/arshad-tk-1b9772390/",
+    image: "/Arshad.jpg"
   }
 ];
