@@ -20,6 +20,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
+  const logoSrc = isDark ? '/Logo.svg' : '/Logo-dark-green.svg';
   const darkTransparentHeader = isDark && !isScrolled;
   const lightTransparentHeader = !isDark && !isScrolled;
 
@@ -55,7 +56,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center group">
             <img 
-              src="/Logo.svg" 
+              src={logoSrc}
               alt="SUSTAINACERT - Global Standards, Trusted Certification" 
               className="h-14 w-auto max-w-[280px] group-hover:scale-105 transition-transform"
             />
