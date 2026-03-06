@@ -124,31 +124,6 @@ export default function Index() {
 
   return (
     <>
-      {/* BACKGROUND VIDEO - Always visible, never removed */}
-      <div className="fixed inset-0 z-0">
-        {expansionComplete ? (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            className="w-full h-full object-cover"
-            poster={HERO_POSTER_URL}
-          >
-            <source src={HERO_VIDEO_URL} type="video/mp4" />
-          </video>
-        ) : (
-          <img
-            src={HERO_POSTER_URL}
-            alt="Hero poster"
-            className="w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-          />
-        )}
-      </div>
-
       {/* PHASE 1: Scroll Expansion Overlay (fades out after completion) */}
       <AnimatePresence>
         {!expansionComplete && (
@@ -183,8 +158,21 @@ export default function Index() {
             className="relative z-10"
           >
             <Layout>
-              {/* Hero Section - NO background video (it's already there) */}
-              <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+              <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-black">
+                <div className="absolute inset-0 z-0">
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="h-full w-full object-cover"
+                    poster={HERO_POSTER_URL}
+                  >
+                    <source src={HERO_VIDEO_URL} type="video/mp4" />
+                  </video>
+                </div>
+
                 {/* Dark overlay for text readability */}
                 <div className="absolute inset-0 z-0 bg-black/40" />
                 
