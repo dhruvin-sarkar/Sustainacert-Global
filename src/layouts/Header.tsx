@@ -20,7 +20,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
-  const logoSrc = isDark ? '/Logo.svg' : '/Logo-dark-green.svg';
+  const logoSrc = isDark ? '/Logo.svg' : '/Logo- Landscape.png';
   const darkTransparentHeader = isDark && !isScrolled;
   const lightTransparentHeader = !isDark && !isScrolled;
 
