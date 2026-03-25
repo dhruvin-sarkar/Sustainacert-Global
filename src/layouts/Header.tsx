@@ -21,8 +21,6 @@ export default function Header() {
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
   const logoSrc = isDark ? '/Logo.svg' : '/Logo- Landscape.png';
-  const darkTransparentHeader = isDark && !isScrolled;
-  const lightTransparentHeader = !isDark && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,14 +36,8 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-background/95 backdrop-blur-md shadow-soft py-3'
-          : darkTransparentHeader
-            ? 'bg-black/25 backdrop-blur-sm py-5'
-            : lightTransparentHeader
-              ? 'bg-white/12 backdrop-blur-sm shadow-[0_4px_18px_rgba(15,42,42,0.08)] py-5'
-              : 'bg-transparent py-5'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/95 backdrop-blur-md shadow-soft ${
+        isScrolled ? 'py-3' : 'py-5'
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
@@ -70,20 +62,8 @@ export default function Header() {
                 to={item.href}
                 className={`text-sm font-medium transition-colors ${
                   location.pathname === item.href
-                    ? lightTransparentHeader
-                      ? 'text-white'
-                      : 'text-primary'
-                    : darkTransparentHeader
-                      ? 'text-white/90 hover:text-white'
-                      : lightTransparentHeader
-                        ? 'text-white/90 hover:text-white'
-                        : 'text-muted-foreground hover:text-primary'
-                } ${
-                  darkTransparentHeader
-                    ? 'drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]'
-                    : lightTransparentHeader
-                      ? 'drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]'
-                      : ''
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-primary'
                 }`}
               >
                 {item.name}
@@ -97,13 +77,7 @@ export default function Header() {
               variant="outline"
               size="sm"
               asChild
-              className={
-                darkTransparentHeader
-                  ? 'border-white/70 bg-black/25 text-white hover:bg-black/35 hover:text-white'
-                  : lightTransparentHeader
-                    ? 'border-white/50 bg-white/14 text-white hover:bg-white/20 hover:text-white'
-                    : ''
-              }
+              className=""
             >
               <Link to="/verify">Verify Certification</Link>
             </Button>
@@ -116,13 +90,7 @@ export default function Header() {
           <div className="flex lg:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={
-                darkTransparentHeader
-                  ? 'p-2 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]'
-                  : lightTransparentHeader
-                    ? 'p-2 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]'
-                    : 'p-2 text-foreground'
-              }
+              className="p-2 text-foreground"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
