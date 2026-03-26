@@ -1,0 +1,23 @@
+{
+  "keys": [
+    "points",
+    "pins",
+    "X_MIN",
+    "Y_MAX",
+    "X_RANGE",
+    "Y_RANGE",
+    "grid",
+    "width",
+    "height",
+    "ystep",
+    "avoidOuterPins",
+    "proj4String",
+    "image"
+  ],
+  "hasGetPoints": true,
+  "pointsLength": 16596,
+  "firstPoint": {
+    "x": 9.5,
+    "y": 0
+  }
+}

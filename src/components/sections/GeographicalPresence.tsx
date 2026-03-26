@@ -1,11 +1,15 @@
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import { Globe as GlobeIcon } from 'lucide-react';
+<<<<<<< HEAD
 // import WireframeDottedGlobe from '@/components/ui/wireframe-dotted-globe';
+=======
+>>>>>>> 10122c7 (finishing up?)
 import { WorldMap } from '@/components/ui/map';
 
 const networkRoutes = [
   {
+<<<<<<< HEAD
     start: { lat: 25.2048, lng: 55.2708, label: 'Dubai', labelOffset: { x: -34, y: -2 } },
     end: { lat: 51.5072, lng: -0.1276, label: 'London', labelOffset: { x: -4, y: -8 } },
   },
@@ -16,6 +20,18 @@ const networkRoutes = [
   {
     start: { lat: 25.2048, lng: 55.2708, label: 'Dubai' },
     end: { lat: 28.6139, lng: 77.209, label: 'New Delhi', labelOffset: { x: 18, y: -22 } },
+=======
+    start: { lat: 25.0, lng: 55.0, label: 'Middle East', labelOffset: { x: -30, y: -4 } },
+    end: { lat: 54.0, lng: -2.0, label: 'UK', labelOffset: { x: -4, y: -8 } },
+  },
+  {
+    start: { lat: 25.0, lng: 55.0, label: 'Middle East' },
+    end: { lat: -25.0, lng: 134.0, label: 'Australia', labelOffset: { x: 10, y: -4 } },
+  },
+  {
+    start: { lat: 25.0, lng: 55.0, label: 'Middle East' },
+    end: { lat: 22.0, lng: 78.0, label: 'India', labelOffset: { x: 14, y: -16 } },
+>>>>>>> 10122c7 (finishing up?)
   },
 ];
 
@@ -49,7 +65,10 @@ export default function GeographicalPresence() {
           </div>
 
           <div className="max-w-6xl mx-auto">
+<<<<<<< HEAD
             {/* <WireframeDottedGlobe /> */}
+=======
+>>>>>>> 10122c7 (finishing up?)
             <WorldMap dots={networkRoutes} lineColor="#10b981" />
           </div>
         </motion.div>
